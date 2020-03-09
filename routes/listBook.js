@@ -4,6 +4,7 @@ module.exports = function ( app ) {
     });
 
     app.post('/listBook', function (req, res) {
+        console.log(req.body.title);
         let Book = global.dbHelper.getModel('book');
         Book.find(function (error, doc) {
             if (error) {

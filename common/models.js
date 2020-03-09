@@ -17,14 +17,5 @@ module.exports = {
         ISBN: {type: String, required: true},
         user: {type: String, required: true},
         comment: {type: String, required: true}
-    },
-    cart: {
-        uId: {type: String},
-        cId: {type: String},
-        cName: {type: String},
-        cPrice: {type: String},
-        cImgSrc: {type: String},
-        cQuantity: {type: Number},
-        cStatus: {type: Boolean, default: false}
     }
 };

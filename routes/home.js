@@ -1,10 +1,10 @@
 module.exports = function ( app ) {
     app.get('/home', function (req, res) {
         if(req.session.user){
-            var Commodity = global.dbHelper.getModel('commodity');
-            Commodity.find({}, function (error, docs) {
-                res.render('home',{Commoditys:docs});
-            });
+            // var Commodity = global.dbHelper.getModel('commodity');
+            // Commodity.find({}, function (error, docs) {
+            //     res.render('home',{Commoditys:docs});
+            // });
         }else{
             req.session.error = "Login please"
             res.redirect('/login');
