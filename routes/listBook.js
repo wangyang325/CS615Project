@@ -1,10 +1,11 @@
 module.exports = function ( app ) {
     app.get('/listBook',function(req,res){
+        console.log("Get:/listBook run");
         res.render('listBook', {data:''});
     });
 
     app.post('/listBook', function (req, res) {
-        console.log(req.body.title);
+        console.log("Post:/listBook run");
         let Book = global.dbHelper.getModel('book');
         Book.find(function (error, doc) {
             if (error) {

@@ -62,25 +62,33 @@
 
     <script type="text/javascript">
         function login(){
-            var username = $('#username').val(),password = $('#password').val();
+
+            let username = $('#username').val();
+            let password = $('#password').val();
 
             if (username == '' || password == '') {
                 alert('Please input the username or password!!!');
                 return;
             }
-            var data = { "uname": username, "upwd":password};
+            let data = { "username": username, "password":password};
             $.ajax({
                 url:'/login',
                 type:'POST',
+                dataType:'json',
                 data:data,
                 success:function(data,status){
                     if(status == 'success'){
-                        location.href='home';
+                        if (data.msg != 'ok') {
+                            alert(data.msg);
+                            location.href='login';
+                        } else {
+                            location.href='listBook';
+                        }
                     }
                 },
                 error:function(data,status){
                     if(status == "error"){
-                        location.href='login'
+                        location.href='error500';
                     }
                 }
             });
@@ -120,7 +128,8 @@
                                 <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
                                 <span class="help-block small">Yur strong password</span>
                             </div>
-                            <button class="btn btn-success btn-block loginbtn" onclick="login();">Login</button>
+<!--                            <input type="submit" class="btn btn-success btn-block loginbtn" value="Login" onclick="login()"></input>-->
+                            <button class="btn btn-success btn-block loginbtn" onclick="login()">login</button>
                             <a class="btn btn-default btn-block" href="register">Register</a>
                         </form>
                     </div>

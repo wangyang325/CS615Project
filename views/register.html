@@ -61,25 +61,31 @@
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
         function register(){
-            let name = $('#username').val();
+            let username = $('#username').val();
             let password = $('#password').val();
-            let confirmPwd = $('#confirmpwd').val();
-            if (password != confirmPwd) {
+            let confirmpwd = $('#confirmpwd').val();
+            if (password != confirmpwd) {
                 alert('The password and confirm password are different!!!');
                 return;
             }
-            let data = { "uname": name, upwd:password};
+            let data = { "username": username, "password":password};
             $.ajax({
                 url:'/register',
                 type:'POST',
+                dataType:'json',
                 data:data,
                 success:function(data,status){
                     if(status == 'success'){
-                        location.href='login';
+                        if (data.msg != 'ok') {
+                            alert(data.msg);
+                            location.href='register';
+                        } else {
+                            location.href='login';
+                        }
                     }
                 },
                 error:function(data,err){
-                    location.href='register';
+                    location.href='error500';
                 }
             });
         };
@@ -123,7 +129,7 @@
                                 <input name="confirmpwd" id="confirmpwd" placeholder="******" type="password" class="form-control">
                                 <span class="help-block small">Confirm your password</span>
                             </div>
-                            <button class="btn btn-success btn-block loginbtn" onclick="register();">Register</button>
+                            <button class="btn btn-success btn-block loginbtn" onclick="register()">Register</button>
                             <a class="btn btn-default btn-block" href="login">Go to login</a>
                         </form>
                     </div>

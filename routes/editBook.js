@@ -1,9 +1,11 @@
 module.exports = function (app) {
     app.get('/editBook', function (req, res) {
+        console.log("Get:/editBook run");
         res.render('editBook');
     });
 
     app.post('/editBook', function (req, res) {
+        console.log("Post:/editBook run");
         let Book = global.dbHelper.getModel('book');
         let Suggestion = global.dbHelper.getModel('suggestion');
         //let uname = req.session.user.name;
