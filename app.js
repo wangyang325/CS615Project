@@ -8,7 +8,7 @@ let multer = require('multer');
 let session = require('express-session');
 
 global.dbHelper = require( './common/dbHelper' );
-let DB_URL = "mongodb://wangyang:wangyang@127.0.0.1:27017/Test";
+let DB_URL = "mongodb://127.0.0.1:27017/Test";
 global.db = mongoose.connect(DB_URL, function(err, db) {
         if (err) throw err;
         console.log("Database created!");
