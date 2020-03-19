@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Product List | jeweler - Material Admin Template</title>
+    <title>Book Update</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -58,7 +58,43 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!-- modernizr JS
 		============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <<script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script type="text/javascript">
+        function save() {
+            let isbn = $('#isbn').val();
+            let title = $('#title').val();
+            let author = $('#author').val();
+            let year = $('#year').val();
+            let abstract = $('#abstract').val();
+            let metadata = $('#metadata').val();
+
+            let data = {
+                'isbn': isbn,
+                'title': title,
+                'author': author,
+                'year': year,
+                'abstract': abstract,
+                'metadata': metadata,
+
+            }
+            $.ajax({
+                url: '/listBook',
+                type: 'PUT',
+                dataType:'json',
+                data: data,
+                success: function (data, status) {
+                    if (status == 'success') {
+                        location.href = 'listBook';
+                    }
+                },
+                error: function (data, status) {
+                    if (status == "error") {
+                        location.href = 'error500'
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -309,23 +345,23 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="review-tab-pro-inner">
-                            <h4>Search Condition</h4>
+                            <h5>Enter ISBN of the Book whose record you wanna update: </h5>
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <div class="product-tab-list tab-pane fade active in" id="description">
                                     <div class="row">
                                         <div class="review-content-section">
                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
-                                                    <select name="select"
-                                                            class="form-control pro-edt-select form-control-primary">
-                                                        <option value="opt1">Topic1</option>
-                                                        <option value="opt2">Topic2</option>
-                                                        <option value="opt3">Topic3</option>
-                                                    </select>
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <label class="control-label" for="authors">ISBN:</label>
+                                                    <input id="isbn" name="isbn" type="text" class="form-control"
+                                                           placeholder="ISBN">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <br>
+                                    <h5>Enter the details of book which you want to update: </h5>
+                                    <br>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                             <div class="review-content-section">
@@ -354,15 +390,35 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                            <div class="review-content-section">
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="review-content-section">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="input-group mg-b-pro-edt">
-                                                    <label class="control-label" for="authors">ISBN:</label>
-                                                    <input id="isbn" name="isbn" type="text" class="form-control"
-                                                           placeholder="ISBN">
+                                                    <label class="control-label" for="abstract">Abstract:</label>
+                                                    <textarea id="abstract" name="abstract" type="textarea"
+                                                              class="form-control" placeholder="Abstract" rows="3"
+                                                              cols="120"></textarea>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="review-content-section">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <label class="control-label" for="metadata">Metadata:</label>
+                                                    <textarea id="metadata" name="metadata" type="textarea"
+                                                              class="form-control" placeholder="Metadata" rows="2"
+                                                              cols="120"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     </div>
 
                                     <div class="row">
@@ -372,7 +428,7 @@
 <!--                                                    <button type="button"-->
 <!--                                                            class="btn btn-primary waves-effect waves-light m-r-10">Search-->
 <!--                                                    </button>-->
-                                                    <input type="submit" class="btn btn-primary waves-effect waves-light m-r-10" value="Search"></input>
+                                                    <input type="submit" class="btn btn-primary waves-effect waves-light m-r-10" value="Update" onclick="save()"></input>
                                                 </div>
                                             </div>
                                         </div>
@@ -381,7 +437,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
             </form>
 
             <div class="row">

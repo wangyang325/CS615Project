@@ -24,6 +24,9 @@ module.exports = function ( app ) {
                    req.session.user=doc;
                    console.log("Login:OK");
                    res.send({'msg': 'ok'});
+                   //res.location('listBook');
+                   //res.location('/listBook');
+
                }
         }
         });

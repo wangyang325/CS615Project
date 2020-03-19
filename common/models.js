@@ -10,12 +10,10 @@ module.exports = {
         author: {type: String, required: true},
         year: {type: String, required: true},
         abstract: {type: String, required: true},
-        metadata: {type: String, required: true},
-        shared: {type: Boolean, default: false}
+        metadata: {type: String, required: true}
     },
     suggestion: {
         ISBN: {type: String, required: true},
-        user: {type: String, required: true},
-        comment: {type: String, required: true}
+        user: {type: String, required: true}
     }
 };

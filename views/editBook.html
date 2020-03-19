@@ -67,17 +67,13 @@
             let year = $('#year').val();
             let abstract = $('#abstract').val();
             let metadata = $('#metadata').val();
-            let shareCheck = $('#shareCheck')[0].checked;
-            let suggestion = $('#suggestion').val();
             let data = {
                 'isbn': isbn,
                 'title': title,
                 'author': author,
                 'year': year,
                 'abstract': abstract,
-                'metadata': metadata,
-                'shared': shareCheck,
-                'suggestion': suggestion
+                'metadata': metadata
             }
             $.ajax({
                 url: '/editBook',

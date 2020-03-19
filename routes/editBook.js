@@ -16,8 +16,6 @@ module.exports = function (app) {
         let year = req.body.year;
         let abstract = req.body.abstract;
         let metadata = req.body.metadata;
-        let shared = req.body.shared;
-        let suggestion = req.body.suggestion;
 
         Book.findOne({'owner': uname, 'ISBN': isbn}, function (error, doc) {
             if (error) {
@@ -31,27 +29,12 @@ module.exports = function (app) {
                     author: author,
                     year: year,
                     abstract: abstract,
-                    metadata: metadata,
-                    shared: shared
+                    metadata: metadata
                 }, function (error, doc) {
                     if (error) {
                         console.log(error);
                         res.send(500);
                     } else {
-                        if (shared) {
-                            Suggestion.create({
-                                ISBN: isbn,
-                                user: uname,
-                                comment: suggestion
-                            }, function (error, doc) {
-                                if (error) {
-                                    console.log(error);
-                                    res.send(500);
-                                } else {
-                                    res.send(200);
-                                }
-                            });
-                        }
                         res.send(200);
                     }
                 });

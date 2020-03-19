@@ -7,7 +7,17 @@ module.exports = function ( app ) {
     app.post('/listBook', function (req, res) {
         console.log("Post:/listBook run");
         let Book = global.dbHelper.getModel('book');
-        Book.find(function (error, doc) {
+        let uname = 'Yang';
+        let isbn = req.body.isbn;
+        Book.updateOne({'owner': uname, 'ISBN': isbn},
+            {
+                title : req.body.title,
+                author : req.body.author,
+                year : req.body.year,
+                abstract : req.body.abstract,
+                metadata : req.body.metadata
+            },
+            function (error, doc) {
             if (error) {
                 res.send(500);
                 console.log(error);
@@ -21,3 +31,5 @@ module.exports = function ( app ) {
     });
 
 }
+
+
