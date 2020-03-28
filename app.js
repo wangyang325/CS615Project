@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let path = require('path');
 let mongoose = require("mongoose");
+mongoose.set('useFindAndModify', false);
 
 let bodyParser = require('body-parser');
 let multer = require('multer');

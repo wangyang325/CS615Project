@@ -6,4 +6,5 @@ module.exports = function ( app ) {
     require('./editBook')(app);
     require('./listBook')(app);
     require('./500')(app);
+    require('./mBook')(app);
 };

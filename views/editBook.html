@@ -61,34 +61,36 @@
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
         function onloadF() {
+            //alert("edit");
             let pageFlg = getQueryVariable('flg');
             // a:add u:update r:readonly d:delete
             if ( pageFlg == 'r' || pageFlg == 'd') {
-                $('#isbn').prop("disabled", true) ;
-                $('#title').prop("disabled", true) ;
-                $('#author').prop("disabled", true) ;
-                $('#year').prop("disabled", true) ;
-                $('#abstract').prop("disabled", true) ;
-                $('#metadata').prop("disabled", true) ;
+                $('#isbn').prop("readonly", true) ;
+                $('#title').prop("readonly", true) ;
+                $('#author').prop("readonly", true) ;
+                $('#year').prop("readonly", true) ;
+                $('#abstract').prop("readonly", true) ;
+                $('#metadata').prop("readonly", true) ;
                 if (pageFlg == 'd') {
-                    $('#btnSave').prop("disabled", false) ;
-                    $('#btnSave').html("delete");
+                    $('#btnSave').prop("readonly", false) ;
+                    $('#btnSave').value("delete");
                 } else {
                     $('#btnSave').prop("disabled", true) ;
                 }
             } else {
-                $('#isbn').prop("disabled", false);
-                $('#title').prop("disabled", false);
-                $('#author').prop("disabled", false);
-                $('#year').prop("disabled", false);
-                $('#abstract').prop("disabled", false);
-                $('#metadata').prop("disabled", false);
-                $('#btnSave').prop("disabled", false) ;
+                $('#isbn').prop("readonly", false);
+                $('#title').prop("readonly", false);
+                $('#author').prop("readonly", false);
+                $('#year').prop("readonly", false);
+                $('#abstract').prop("readonly", false);
+                $('#metadata').prop("readonly", false);
+                $('#btnSave').prop("readonly", false) ;
                 if (pageFlg == 'u') {
-                    $('#btnSave').html("update");
+                    $('#btnSave').prop("value", "update")
+                    $('#isbn').prop("readonly", true);
                 }
                 else {
-                    $('#btnSave').html("save");
+                    $('#btnSave').prop("value", "save");
                 }
 
             }
@@ -103,40 +105,7 @@
             }
             return('');
         }
-        function save() {
-            let btnF = $('#btnF').val()
-            let isbn = $('#isbn').val();
-            let title = $('#title').val();
-            let author = $('#author').val();
-            let year = $('#year').val();
-            let abstract = $('#abstract').val();
-            let metadata = $('#metadata').val();
-            let data = {
-                'isbn': isbn,
-                'title': title,
-                'author': author,
-                'year': year,
-                'abstract': abstract,
-                'metadata': metadata,
-                'flg': btnF
-            }
-            $.ajax({
-                url: '/editBook',
-                type: 'POST',
-                dataType:'json',
-                data: data,
-                success: function (data, status) {
-                    if (status == 'success') {
-                        location.href = 'listBook';
-                    }
-                },
-                error: function (data, status) {
-                    if (status == "error") {
-                        location.href = 'error500'
-                    }
-                }
-            });
-        }
+
     </script>
 </head>
 
@@ -177,9 +146,9 @@
                             <li><a title="Add Book" href="/editBook"><i class="fa fa-bullseye sub-icon-mg"
                                                                         aria-hidden="true"></i>
                                 <span class="mini-sub-pro">Add Book</span></a></li>
-                            <li><a title="Update Books" href="/listBook"><i class="fa fa-circle-o sub-icon-mg"
-                                                                            aria-hidden="true"></i>
-                                <span class="mini-sub-pro">Update Books</span></a></li>
+                            <li><a title="Books Management" href="/mBook"><i class="fa fa-circle-o sub-icon-mg"
+                                                                             aria-hidden="true"></i>
+                                <span class="mini-sub-pro">Books Management</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -396,7 +365,7 @@
                             </ul>
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <div class="product-tab-list tab-pane fade active in" id="description">
-                                    <form action="#" id="editForm">
+                                    <form action="/editBook" id="editForm" method="post">
                                         <div class="row">
                                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                                 <div class="review-content-section">
@@ -463,11 +432,8 @@
                                             <div class="review-content-section">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
-                                                        <button type="button" onclick="save();" id="btnSave"
-                                                                class="btn btn-primary waves-effect waves-light m-r-10">
-                                                            Save
-                                                        </button>
-                                                        <input type="hidden" id="btnF" value="<%= flg.flg%>">
+                                                        <input type="submit" id="btnSave" class="btn btn-primary waves-effect waves-light m-r-10" value="Save"></input>
+                                                        <input type="hidden" id="flg" name="flg" value="<%= flg.flg%>">
                                                         <!--                                                    <button type="button" class="btn btn-warning waves-effect waves-light">Discard-->
                                                         <!--														</button>-->
                                                     </div>

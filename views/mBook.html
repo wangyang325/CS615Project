@@ -1,0 +1,336 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Personal Library</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/owl.transitions.css">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- responsive CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- modernizr JS
+		============================================ -->
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script type="text/javascript">
+        //alert("mBook");
+        function deleteRow(owner, Cisbn) {
+
+            document.getElementById('flg').value = 'delete';
+            document.getElementById('Cisbn').value = Cisbn;
+            document.getElementById('Cowner').value = owner;
+            document.getElementById('SearchForm').submit();
+        }
+        function editRow(owner, Cisbn) {
+            document.getElementById('flg').value = 'add';
+            document.getElementById('Cisbn').value = Cisbn;
+            document.getElementById('Cowner').value = owner;
+            document.getElementById('SearchForm').submit();
+        }
+    </script>
+</head>
+
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="left-sidebar-pro">
+    <nav id="sidebar" class="">
+        <div class="sidebar-header">
+            <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
+            <strong><img src="img/logo/logosn.png" alt=""/></strong>
+        </div>
+        <div class="left-custom-menu-adp-wrap comment-scrollbar">
+            <nav class="sidebar-nav left-sidebar-menu-pro">
+                <ul class="metismenu" id="menu1">
+                    <li class="active">
+                        <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i
+                                class="fa fa-bookmark icon-wrap sub-icon-mg"></i>
+                            <span class="mini-click-non">PERSONAL LIBRARY</span></a>
+                        <ul class="submenu-angle" aria-expanded="false">
+                            <li><a title="Personal Section" href="mailbox.html"><i class="fa fa-inbox sub-icon-mg"
+                                                                                   aria-hidden="true"></i> <span
+                                    class="mini-sub-pro">Personal Section</span></a></li>
+                            <li><a title="Social Section" href="mailbox-view.html"><i
+                                    class="fa fa-television sub-icon-mg" aria-hidden="true"></i> <span
+                                    class="mini-sub-pro">Social Section</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="index.html">
+                            <i class="fa big-icon fa-files-o icon-wrap"></i>
+                            <span class="mini-click-non">MANAGEMENT</span>
+                        </a>
+                        <ul class="submenu-angle" aria-expanded="true">
+                            <li><a title="Add Book" href="/editBook"><i class="fa fa-bullseye sub-icon-mg"
+                                                                        aria-hidden="true"></i>
+                                <span class="mini-sub-pro">Add Book</span></a></li>
+                            <li><a title="Books Management" href="/mBook"><i class="fa fa-circle-o sub-icon-mg"
+                                                                            aria-hidden="true"></i>
+                                <span class="mini-sub-pro">Books Management</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+</div>
+
+<!-- Start Welcome area -->
+<div class="all-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="logo-pro">
+                    <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-advance-area">
+        <div class="header-top-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="header-top-wraper">
+                            <div class="row">
+                                <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                    <div class="menu-switcher-pro">
+                                        <button type="button" id="sidebarCollapse"
+                                                class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                    <div class="header-top-menu tabl-d-n">
+                                        <ul class="nav navbar-nav mai-top-nav">
+                                            <li class="nav-item"><a href="#" class="nav-link">Home</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-status mg-tb-15">
+        <div class="container-fluid">
+            <form action="/mBook" id="SearchForm" method="post">
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="review-tab-pro-inner">
+                            <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                    <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <label class="control-label" for="title">Title:</label>
+                                                            <input type="text" id="title" name="title" class="form-control" value="<%= title%>"
+                                                                   placeholder="Title">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                    <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <label class="control-label" for="author">Author(s):</label>
+                                                            <input id="author" name="author" type="text" value="<%= author%>"
+                                                                   class="form-control" placeholder="Author(s)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                    <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <label class="control-label" for="year">Publish Year:</label>
+                                                            <input id="year" name="year" type="text" class="form-control" value="<%= year%>"
+                                                                   placeholder="Publish Year">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                                                    <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <label class="control-label" for="author">ISBN:</label>
+                                                            <input id="isbn" name="isbn" type="text" class="form-control" value="<%= ISBN%>"
+                                                                   placeholder="ISBN">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="row">
+                                            <div class="review-content-section">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
+                                                        <input type="submit" class="btn btn-primary waves-effect waves-light m-r-10" value="Search"></input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-status-wrap">
+                        <h4>Book List</h4>
+                        <table>
+                            <tr>
+                                <th>Title</th>
+                                <th>ISBN</th>
+                                <th>Author</th>
+                                <th>Year</th>
+                                <th>Abstract</th>
+                                <th>Topics</th>
+                                <th>Operation</th>
+                            </tr>
+                            <input type="hidden" name="Cisbn" id="Cisbn" value="">
+                            <input type="hidden" name="Cowner" id="Cowner" value="">
+                            <input type="hidden" id="flg" name="flg" value="">
+
+                            <% for (let i in data) { %>
+                            <tr>
+                                <td><%= data[i].title%></td>
+                                <td><%= data[i].ISBN%></td>
+                                <td><%= data[i].author%></td>
+                                <td><%= data[i].year%></td>
+                                <td><%= data[i].abstract%></td>
+                                <td><%= data[i].metadata%></td>
+                                <td>
+                                    <button onclick="editRow('<%= data[i].owner%>', '<%= data[i].ISBN%>')" data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                    <button onclick="deleteRow('<%= data[i].owner%>', '<%= data[i].ISBN%>')" data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <% } %>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-copyright-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-copy-right">
+                        <p>Copyright &copy; 2020 G10 All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jquery
+    ============================================ -->
+<script src="js/vendor/jquery-1.11.3.min.js"></script>
+<!-- bootstrap JS
+    ============================================ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- wow JS
+    ============================================ -->
+<script src="js/wow.min.js"></script>
+<!-- price-slider JS
+    ============================================ -->
+<script src="js/jquery-price-slider.js"></script>
+<!-- meanmenu JS
+    ============================================ -->
+<script src="js/jquery.meanmenu.js"></script>
+<!-- owl.carousel JS
+    ============================================ -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- sticky JS
+    ============================================ -->
+<script src="js/jquery.sticky.js"></script>
+<!-- scrollUp JS
+    ============================================ -->
+<script src="js/jquery.scrollUp.min.js"></script>
+<!-- mCustomScrollbar JS
+    ============================================ -->
+<script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+<!-- metisMenu JS
+    ============================================ -->
+<script src="js/metisMenu/metisMenu.min.js"></script>
+<script src="js/metisMenu/metisMenu-active.js"></script>
+<!-- morrisjs JS
+    ============================================ -->
+<script src="js/sparkline/jquery.sparkline.min.js"></script>
+<script src="js/sparkline/jquery.charts-sparkline.js"></script>
+<!-- calendar JS
+    ============================================ -->
+<script src="js/calendar/moment.min.js"></script>
+<script src="js/calendar/fullcalendar.min.js"></script>
+<script src="js/calendar/fullcalendar-active.js"></script>
+<!-- plugins JS
+    ============================================ -->
+<script src="js/plugins.js"></script>
+<!-- main JS
+    ============================================ -->
+<script src="js/main.js"></script>
+</body>
+
+</html>

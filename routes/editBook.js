@@ -48,9 +48,11 @@ module.exports = function (app) {
                     res.render('500');
                     console.log(error);
                 } else {
-                    res.render('listBook');
+                    //
                 }
             });
+            console.log("render: mBook");
+            res.render('mBook',  {data:'', ISBN:'', title:'', year:'', author:''});
         }
         else if (req.body.flg === 'd') {
             Book.findOne({'owner': owner, 'ISBN': isbn}, function (error, doc) {
@@ -59,7 +61,7 @@ module.exports = function (app) {
                     console.log(error);
                 } else if (doc) {
                     doc.remove();
-                    res.render('listBook');
+                    res.render('mBook',  {data:'', ISBN:'', title:'', year:'', author:''});
                 }
             });
         }
@@ -82,7 +84,7 @@ module.exports = function (app) {
                             console.log(error);
                             res.render('500');
                         } else {
-                            res.render('listBook');
+                            res.render('mBook', {data:'', ISBN:'', title:'', year:'', author:''});
                         }
                     });
                 }
