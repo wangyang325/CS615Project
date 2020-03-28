@@ -5,5 +5,5 @@ module.exports = function ( app ) {
     require('./test')(app);
     require('./editBook')(app);
     require('./listBook')(app);
-    require('./error500')(app);
+    require('./500')(app);
 };

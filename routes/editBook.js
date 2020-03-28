@@ -1,15 +1,33 @@
 module.exports = function (app) {
     app.get('/editBook', function (req, res) {
         console.log("Get:/editBook run");
-        res.render('editBook');
+        let Book = global.dbHelper.getModel('book');
+        if (req.query.flg === 'u' || req.query.flg === 'r' || req.query.flg === 'd') {
+            let owner = req.query.owner;
+            let isbn = req.query.isbn;
+            Book.findOne({'owner': owner, 'ISBN': isbn}, function (error, doc) {
+                if (error) {
+                    res.render('500');
+                    console.log(error);
+                } else if (doc) {
+                    res.render('editBook', {data:doc, flg:{flg:req.query.flg}});
+                } else {
+                    res.render('500');
+                    console.log("The book does not exist!!");
+                }
+            });
+
+        } else {
+            res.render('editBook', {data: {author: '', isbn: '', title: '', year: '', abstract: '', metadata: ''}, flg:{flg:'a'}});
+        }
     });
 
     app.post('/editBook', function (req, res) {
         console.log("Post:/editBook run");
+
         let Book = global.dbHelper.getModel('book');
-        let Suggestion = global.dbHelper.getModel('suggestion');
         //let uname = req.session.user.name;
-        let uname = 'Yang';
+        let owner = 'Yang';
         let isbn = req.body.isbn;
         let title = req.body.title;
         let author = req.body.author;
@@ -17,30 +35,59 @@ module.exports = function (app) {
         let abstract = req.body.abstract;
         let metadata = req.body.metadata;
 
-        Book.findOne({'owner': uname, 'ISBN': isbn}, function (error, doc) {
-            if (error) {
-                res.send(500);
-                console.log(error);
-            } else if (!doc) {
-                Book.create({
-                    ISBN: isbn,
-                    owner: uname,
-                    title: title,
-                    author: author,
-                    year: year,
-                    abstract: abstract,
-                    metadata: metadata
-                }, function (error, doc) {
-                    if (error) {
-                        console.log(error);
-                        res.send(500);
-                    } else {
-                        res.send(200);
-                    }
-                });
-            } else {
-            }
-        });
+        if (req.body.flg === 'u') {
+            let newData = {
+                title: title,
+                author: author,
+                year: year,
+                abstract: abstract,
+                metadata: metadata
+            };
+            Book.findOneAndUpdate({'owner': owner, 'ISBN': isbn}, newData, function(err, doc) {
+                if (err) {
+                    res.render('500');
+                    console.log(error);
+                } else {
+                    res.render('listBook');
+                }
+            });
+        }
+        else if (req.body.flg === 'd') {
+            Book.findOne({'owner': owner, 'ISBN': isbn}, function (error, doc) {
+                if (error) {
+                    res.render('500');
+                    console.log(error);
+                } else if (doc) {
+                    doc.remove();
+                    res.render('listBook');
+                }
+            });
+        }
+        else {
+            Book.findOne({'owner': owner, 'ISBN': isbn}, function (error, doc) {
+                if (error) {
+                    res.render('500');
+                    console.log(error);
+                } else if (!doc) {
+                    Book.create({
+                        ISBN: isbn,
+                        owner: owner,
+                        title: title,
+                        author: author,
+                        year: year,
+                        abstract: abstract,
+                        metadata: metadata
+                    }, function (error, doc) {
+                        if (error) {
+                            console.log(error);
+                            res.render('500');
+                        } else {
+                            res.render('listBook');
+                        }
+                    });
+                }
+            });
+        }
     });
 
 }

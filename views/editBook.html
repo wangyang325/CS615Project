@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Product Edit | jeweler - Material Admin Template</title>
+    <title>Personal Library</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -60,7 +60,51 @@
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
+        function onloadF() {
+            let pageFlg = getQueryVariable('flg');
+            // a:add u:update r:readonly d:delete
+            if ( pageFlg == 'r' || pageFlg == 'd') {
+                $('#isbn').prop("disabled", true) ;
+                $('#title').prop("disabled", true) ;
+                $('#author').prop("disabled", true) ;
+                $('#year').prop("disabled", true) ;
+                $('#abstract').prop("disabled", true) ;
+                $('#metadata').prop("disabled", true) ;
+                if (pageFlg == 'd') {
+                    $('#btnSave').prop("disabled", false) ;
+                    $('#btnSave').html("delete");
+                } else {
+                    $('#btnSave').prop("disabled", true) ;
+                }
+            } else {
+                $('#isbn').prop("disabled", false);
+                $('#title').prop("disabled", false);
+                $('#author').prop("disabled", false);
+                $('#year').prop("disabled", false);
+                $('#abstract').prop("disabled", false);
+                $('#metadata').prop("disabled", false);
+                $('#btnSave').prop("disabled", false) ;
+                if (pageFlg == 'u') {
+                    $('#btnSave').html("update");
+                }
+                else {
+                    $('#btnSave').html("save");
+                }
+
+            }
+        }
+        function getQueryVariable(variable)
+        {
+            let query = window.location.search.substring(1);
+            let vars = query.split("&");
+            for (let i=0;i<vars.length;i++) {
+                let pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+            }
+            return('');
+        }
         function save() {
+            let btnF = $('#btnF').val()
             let isbn = $('#isbn').val();
             let title = $('#title').val();
             let author = $('#author').val();
@@ -73,7 +117,8 @@
                 'author': author,
                 'year': year,
                 'abstract': abstract,
-                'metadata': metadata
+                'metadata': metadata,
+                'flg': btnF
             }
             $.ajax({
                 url: '/editBook',
@@ -95,7 +140,7 @@
     </script>
 </head>
 
-<body>
+<body onLoad="onloadF()">
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -357,7 +402,7 @@
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <label class="control-label" for="title">Title:</label>
-                                                        <input type="text" id="title" name="title" class="form-control"
+                                                        <input type="text" id="title" name="title" class="form-control" value="<%= data.title%>"
                                                                placeholder="Title">
                                                     </div>
                                                 </div>
@@ -366,7 +411,7 @@
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <label class="control-label" for="author">Author(s):</label>
-                                                        <input id="author" name="author" type="text"
+                                                        <input id="author" name="author" type="text" value="<%= data.author%>"
                                                                class="form-control" placeholder="Author(s)">
                                                     </div>
                                                 </div>
@@ -375,7 +420,7 @@
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <label class="control-label" for="year">Publish Year:</label>
-                                                        <input id="year" name="year" type="text" class="form-control"
+                                                        <input id="year" name="year" type="text" class="form-control" value="<%= data.year%>"
                                                                placeholder="Publish Year">
                                                     </div>
                                                 </div>
@@ -384,7 +429,7 @@
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <label class="control-label" for="author">ISBN:</label>
-                                                        <input id="isbn" name="isbn" type="text" class="form-control"
+                                                        <input id="isbn" name="isbn" type="text" class="form-control" value="<%= data.ISBN%>"
                                                                placeholder="ISBN">
                                                     </div>
                                                 </div>
@@ -397,7 +442,7 @@
                                                         <label class="control-label" for="abstract">Abstract:</label>
                                                         <textarea id="abstract" name="abstract" type="textarea"
                                                                   class="form-control" placeholder="Abstract" rows="3"
-                                                                  cols="120"></textarea>
+                                                                  cols="120"><%= data.abstract%></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -409,37 +454,20 @@
                                                         <label class="control-label" for="metadata">Metadata:</label>
                                                         <textarea id="metadata" name="metadata" type="textarea"
                                                                   class="form-control" placeholder="Metadata" rows="2"
-                                                                  cols="120"></textarea>
+                                                                  cols="120"><%= data.metadata%></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="review-content-section">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input"
-                                                                   id="shareCheck" name="shareCheck">
-                                                            <label class="form-check-label" for="shareCheck">Share
-                                                                Me</label>
-                                                        </div>
-                                                        <textarea id="suggestion" name="suggestion" type="textarea"
-                                                                  class="form-control" placeholder="suggestion" rows="3"
-                                                                  cols="120"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="row">
                                             <div class="review-content-section">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
-                                                        <button type="button" onclick="save();"
+                                                        <button type="button" onclick="save();" id="btnSave"
                                                                 class="btn btn-primary waves-effect waves-light m-r-10">
                                                             Save
                                                         </button>
+                                                        <input type="hidden" id="btnF" value="<%= flg.flg%>">
                                                         <!--                                                    <button type="button" class="btn btn-warning waves-effect waves-light">Discard-->
                                                         <!--														</button>-->
                                                     </div>
