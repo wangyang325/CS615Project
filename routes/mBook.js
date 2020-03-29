@@ -45,6 +45,10 @@ module.exports = function ( app ) {
             condition['author'] = { $regex: author, $options: 'i' };
         }
         Book.find(condition, function (err, books) {
+            if (err) {
+                console.log(error);
+                res.render('500');
+            }
             res.render('mBook', {data:books, ISBN:isbn, title:title, year:year, author:author });
         });
     });

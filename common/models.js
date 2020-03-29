@@ -11,5 +11,8 @@ module.exports = {
         year: {type: String, required: true},
         abstract: {type: String, required: true},
         metadata: {type: String, required: true}
+    },
+    topic: {
+        topic: {type: String, required: true}
     }
 };

@@ -7,4 +7,5 @@ module.exports = function ( app ) {
     require('./listBook')(app);
     require('./500')(app);
     require('./mBook')(app);
+    require('./pSection')(app);
 };

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Personal Library</title>
+    <title>Personal Section</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -56,28 +56,49 @@
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- forms CSS
+    ============================================ -->
+    <link rel="stylesheet" href="css/form/all-type-forms.css">
+
     <!-- modernizr JS
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
-        //alert("mBook");
-        function deleteRow(owner, Cisbn) {
+        function onloadF() {
+            let strCheck = document.getElementById("checkedId").value;
+            if (strCheck != null && strCheck.trim() != '') {
+                let arr = strCheck.split(',');
+                for (let i in arr) {
+                    if (arr[i].trim() != '') {
 
-            document.getElementById('flg').value = 'delete';
-            document.getElementById('Cisbn').value = Cisbn;
-            document.getElementById('Cowner').value = owner;
-            document.getElementById('SearchForm').submit();
+                        let checkbox = document.getElementsByName("checkBox");
+                        for ( let i = 0; i < checkbox.length; i++) {
+                            if (arr[i].trim() == document.getElementById(arr[i].trim()).value) {
+                                document.getElementById(arr[i].trim()).checked = true;
+                            }
+                        }
+                    }
+                }
+            }
         }
-        function editRow(owner, Cisbn) {
-            document.getElementById('flg').value = 'add';
-            document.getElementById('Cisbn').value = Cisbn;
-            document.getElementById('Cowner').value = owner;
+        function clickSearch() {
+            let bb = "";
+            let temp = "";
+            let checkbox = document.getElementsByName("checkBox");
+            for ( let i = 0; i < checkbox.length; i++) {
+                if (checkbox[i].checked) {
+                    temp = checkbox[i].value;
+                    bb = bb + "," +temp;
+                }
+            }
+            document.getElementById("checkedId").value = bb.substring(1, bb.length);
             document.getElementById('SearchForm').submit();
         }
     </script>
+
 </head>
 
-<body>
+<body onload="onloadF()">
 <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -98,7 +119,7 @@
                             <span class="mini-click-non">PERSONAL LIBRARY</span></a>
                         <ul class="submenu-angle" aria-expanded="false">
                             <li><a title="Personal Section" href="/pSection"><i class="fa fa-inbox sub-icon-mg"
-                                                                                aria-hidden="true"></i> <span
+                                                                                   aria-hidden="true"></i> <span
                                     class="mini-sub-pro">Personal Section</span></a></li>
                             <li><a title="Social Section" href="/pSection"><i
                                     class="fa fa-television sub-icon-mg" aria-hidden="true"></i> <span
@@ -115,7 +136,7 @@
                                                                         aria-hidden="true"></i>
                                 <span class="mini-sub-pro">Add Book</span></a></li>
                             <li><a title="Books Management" href="/mBook"><i class="fa fa-circle-o sub-icon-mg"
-                                                                             aria-hidden="true"></i>
+                                                                            aria-hidden="true"></i>
                                 <span class="mini-sub-pro">Books Management</span></a></li>
                         </ul>
                     </li>
@@ -131,7 +152,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="logo-pro">
-                    <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
+                    <a href="/pSection"><img class="main-logo" src="img/logo/logo.png" alt=""/></a>
                 </div>
             </div>
         </div>
@@ -155,7 +176,7 @@
                                 <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
                                     <div class="header-top-menu tabl-d-n">
                                         <ul class="nav navbar-nav mai-top-nav">
-                                            <li class="nav-item"><a href="#" class="nav-link">Home</a>
+                                            <li class="nav-item"><a href="/pSection" class="nav-link">Home</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -168,108 +189,76 @@
         </div>
     </div>
 
-    <div class="product-status mg-tb-15">
-        <div class="container-fluid">
-            <form action="/mBook" id="SearchForm" method="post">
+    <form action="/pSection" id="SearchForm" class="form-horizontal" method="post">
 
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="review-tab-pro-inner">
-                            <div id="myTabContent" class="tab-content custom-product-edit">
-                                    <div class="product-tab-list tab-pane fade active in" id="description">
-                                        <div class="row">
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <div class="review-content-section">
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <label class="control-label" for="title">Title:</label>
-                                                            <input type="text" id="title" name="title" class="form-control" value="<%= title%>"
-                                                                   placeholder="Title">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <div class="review-content-section">
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <label class="control-label" for="author">Author(s):</label>
-                                                            <input id="author" name="author" type="text" value="<%= author%>"
-                                                                   class="form-control" placeholder="Author(s)">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <div class="review-content-section">
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <label class="control-label" for="year">Publish Year:</label>
-                                                            <input id="year" name="year" type="text" class="form-control" value="<%= year%>"
-                                                                   placeholder="Publish Year">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                                    <div class="review-content-section">
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <label class="control-label" for="author">ISBN:</label>
-                                                            <input id="isbn" name="isbn" type="text" class="form-control" value="<%= ISBN%>"
-                                                                   placeholder="ISBN">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <div class="row">
-                                            <div class="review-content-section">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
-                                                        <input type="submit" class="btn btn-primary waves-effect waves-light m-r-10" value="Search"></input>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+        <div class="container-fluid">
+            <div class="row">
+                    <div class="review-tab-pro-inner">
+                        <h3>Choose topics:</h3>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <% for (let i in topic) { %>
+                                <label class="container1"><%= topic[i] %>
+                                    <input  id="<%= topic[i] %>" name="checkBox" type="checkbox" value="<%= topic[i] %>"></input>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <% } %>
+                            </div>
+                        </div>
+                        <input type="hidden" name="checkedId" id="checkedId" value="<%= checkedId %>">
+                        <input type="hidden" name="checkAll" id="checkAll" value="<%= checkAll %>">
+                        <div class="row">
+                            <div class="review-content-section">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
+                                        <input type="submit" class="btn btn-primary waves-effect waves-light m-r-10" onclick="clickSearch();" value="Search"></input>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <div class="color-line"></div>
-                <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="product-status-wrap">
-                        <h4>Book List</h4>
-                        <table>
-                            <tr>
-                                <th>Title</th>
-                                <th>ISBN</th>
-                                <th>Author</th>
-                                <th>Year</th>
-                                <th>Abstract</th>
-                                <th>Topics</th>
-                                <th>Operation</th>
-                            </tr>
-                            <input type="hidden" name="Cisbn" id="Cisbn" value="">
-                            <input type="hidden" name="Cowner" id="Cowner" value="">
-                            <input type="hidden" id="flg" name="flg" value="">
+            </div>
+            <div class="color-line"></div>
+            <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                    <h3>Personal Book List:</h3>
+                    <table>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Title</th>
+                            <th>ISBN</th>
+                            <th>Author</th>
+                            <th>Year</th>
+                            <th>Abstract</th>
+                            <th>MetaData</th>
+<!--                            <th>Operation</th>-->
+                        </tr>
 
-                            <% for (let i in data) { %>
-                            <tr>
-                                <td><%= data[i].title%></td>
-                                <td><%= data[i].ISBN%></td>
-                                <td><%= data[i].author%></td>
-                                <td><%= data[i].year%></td>
-                                <td><%= data[i].abstract%></td>
-                                <td><%= data[i].metadata%></td>
-                                <td>
-                                    <button onclick="editRow('<%= data[i].owner%>', '<%= data[i].ISBN%>')" data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                    <button onclick="deleteRow('<%= data[i].owner%>', '<%= data[i].ISBN%>')" data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <% } %>
 
-                        </table>
-                    </div>
+                        <% for (let i in data) { %>
+                        <tr>
+                            <td><%= data[i].topic%></td>
+                            <td><%= data[i].book.title%></td>
+                            <td><%= data[i].book.ISBN%></td>
+                            <td><%= data[i].book.author%></td>
+                            <td><%= data[i].book.year%></td>
+                            <td><%= data[i].book.abstract%></td>
+                            <td><%= data[i].book.metadata%></td>
+<!--                            <td>-->
+<!--                                <button onclick="editRow('<%= data[i].owner%>', '<%= data[i].ISBN%>')" data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>-->
+<!--                                <button onclick="deleteRow('<%= data[i].owner%>', '<%= data[i].ISBN%>')" data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>-->
+<!--                            </td>-->
+                        </tr>
+                        <% } %>
+
+                    </table>
                 </div>
             </div>
-            </form>
         </div>
+
     </div>
+    </form>
 
     <div class="footer-copyright-area">
         <div class="container-fluid">
@@ -325,6 +314,12 @@
 <script src="js/calendar/moment.min.js"></script>
 <script src="js/calendar/fullcalendar.min.js"></script>
 <script src="js/calendar/fullcalendar-active.js"></script>
+
+<!-- icheck JS
+    ============================================ -->
+<script src="js/icheck/icheck.min.js"></script>
+<script src="js/icheck/icheck-active.js"></script>
+
 <!-- plugins JS
     ============================================ -->
 <script src="js/plugins.js"></script>
