@@ -1,7 +1,7 @@
 module.exports = function ( app ) {
     app.get('/register', function(req, res) {
         console.log("Get:/register run");
-        res.render('register.html');
+        res.render('register');
     });
 
     app.post('/register', function (req, res) {
@@ -27,7 +27,7 @@ module.exports = function ( app ) {
                         res.send(500);
                     } else {
                         req.session.error = 'Create Ok！';
-                        res.render('login');
+                        res.redirect('/login');
                     }
                 });
             }

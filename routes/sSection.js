@@ -10,7 +10,8 @@ module.exports = function ( app ) {
             res.redirect('500');
             return;
         }
-
+        let topics = new Array();
+        let checkA = '';
         Book.aggregate([
             {$group: {_id: '$ISBN', total: {$sum: 1}}},
             {$match: {total: {$gt: 2}}}
@@ -27,8 +28,6 @@ module.exports = function ( app ) {
                         res.render('500');
                     }
                 }).then(function (books) {
-                    let topics = new Array();
-                    let checkA = '';
                     for (let i in books) {
                         let meta = books[i].metadata;
                         let ary = meta.split(',');
@@ -44,6 +43,8 @@ module.exports = function ( app ) {
                     }
                     res.render('sSection', {data:'', topic:topics, checkedId:'', checkAll:checkA});
                 })
+            } else {
+                res.render('sSection', {data:'', topic:topics, checkedId:'', checkAll:checkA});
             }
         })
     });
