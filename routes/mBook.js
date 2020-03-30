@@ -1,13 +1,27 @@
 module.exports = function ( app ) {
     app.get('/mBook',function(req,res){
         console.log("Get:/mBook run");
+        let owner;
+        try {
+            owner = req.session.user.name;
+        } catch (e) {
+            res.redirect('500');
+            return;
+        }
+
         res.render('mBook', {data:'', ISBN:'', title:'', year:'', author:''});
     });
 
     app.post('/mBook', function (req, res) {
         console.log("Post:/mBook run");
         let Book = global.dbHelper.getModel('book');
-        let owner = 'Yang';
+        let owner;
+        try {
+            owner = req.session.user.name;
+        } catch (e) {
+            res.redirect('500');
+            return;
+        }
         let isbn = req.body.isbn;
         let title = req.body.title;
         let year = req.body.year;
@@ -17,7 +31,6 @@ module.exports = function ( app ) {
 
         let flg = req.body.flg;
         if (flg == 'delete') {
-            owner = req.body.Cowner;
             Book.deleteOne({ ISBN: Cisbn, owner: owner }, function (err) {
                 if (err) {
                     console.log(error);

@@ -2,7 +2,13 @@ module.exports = function ( app ) {
     app.get('/pSection',function(req,res){
         console.log("Get:/pSection run");
         let Book = global.dbHelper.getModel('book');
-        let owner = 'Yang';
+        let owner;
+        try {
+            owner = req.session.user.name;
+        } catch (e) {
+            res.redirect('500');
+            return;
+        }
         Book.find({owner: owner}, function (err, books) {
             if (err) {
                 console.log(error);
@@ -61,7 +67,13 @@ module.exports = function ( app ) {
         let listData = new Array();
 
         let Book = global.dbHelper.getModel('book');
-        let owner = 'Yang';
+        let owner;
+        try {
+            owner = req.session.user.name;
+        } catch (e) {
+            res.redirect('500');
+            return;
+        }
         let condition = {owner: owner};
 
         let conArr = new Array();

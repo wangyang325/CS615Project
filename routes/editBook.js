@@ -2,6 +2,15 @@ module.exports = function (app) {
     app.get('/editBook', function (req, res) {
         console.log("Get:/editBook run");
         let Book = global.dbHelper.getModel('book');
+
+        let owner;
+        try {
+            owner = req.session.user.name;
+        } catch (e) {
+            res.redirect('500');
+            return;
+        }
+
         if (req.query.flg === 'u' || req.query.flg === 'r' || req.query.flg === 'd') {
             let owner = req.query.owner;
             let isbn = req.query.isbn;
@@ -26,8 +35,13 @@ module.exports = function (app) {
         console.log("Post:/editBook run");
 
         let Book = global.dbHelper.getModel('book');
-        //let uname = req.session.user.name;
-        let owner = 'Yang';
+        let owner;
+        try {
+            owner = req.session.user.name;
+        } catch (e) {
+            res.redirect('500');
+            return;
+        }
         let isbn = req.body.isbn;
         let title = req.body.title;
         let author = req.body.author;

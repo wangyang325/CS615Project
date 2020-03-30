@@ -12,7 +12,9 @@ module.exports = function ( app ) {
             if (error) {
                 req.session.error = 'The network is error！';
                 res.send(500);
-            } else if (doc) {
+            }
+        }).then(function (doc) {
+            if (doc) {
                 req.session.error = 'The user is exist！';
                 res.send({'msg': 'The user is exist！'});
             } else {
@@ -25,10 +27,11 @@ module.exports = function ( app ) {
                         res.send(500);
                     } else {
                         req.session.error = 'Create Ok！';
-                        res.send({'msg': 'ok'});
+                        res.render('login');
                     }
                 });
             }
-        });
+
+        })
     });
 }

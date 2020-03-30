@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login | jeweler - Material Admin Template</title>
+    <title>Login</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -70,30 +70,7 @@
                 alert('Please input the username or password!!!');
                 return;
             }
-            let data = { "username": username, "password":password};
-            $.ajax({
-                url:'/login',
-                type:'POST',
-                dataType:'json',
-                async: true,
-                data:data,
-                jsonpCallback: 'callback',
-                success:function(data,status){
-                    if(status == 'success'){
-                        if (data.msg != 'ok') {
-                            alert(data.msg);
-                            location.href='login';
-                        } else {
-                            location.href='/listBook';
-                        }
-                    }
-                },
-                error:function(data,status){
-                    if(status == "error"){
-                        location.href='error500';
-                    }
-                }
-            });
+            document.getElementById('btlogin').submit();
         }
     </script>
 </head>
@@ -119,7 +96,7 @@
                 </div>
                 <div class="hpanel">
                     <div class="panel-body">
-                        <form id="loginForm">
+                        <form action="/login" id="loginForm" method="post">
                             <div class="form-group">
                                 <label class="control-label" for="username">Username</label>
                                 <input type="text" placeholder="admin" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
@@ -128,10 +105,10 @@
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>
                                 <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
-                                <span class="help-block small">Yur strong password</span>
+                                <span class="help-block small">Your strong password</span>
                             </div>
 <!--                            <input type="submit" class="btn btn-success btn-block loginbtn" value="Login" onclick="login()"></input>-->
-                            <button class="btn btn-success btn-block loginbtn" onclick="login()">login</button>
+                            <input type="submit" id="btlogin" class="btn btn-success btn-block loginbtn" onclick="login()" value="login"></input>
                             <a class="btn btn-default btn-block" href="register">Register</a>
                         </form>
                     </div>
