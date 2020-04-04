@@ -1,8 +1,14 @@
+// *********************************
+// ** Collection definition module:
+// **   Definition for collections
+// *********************************
 module.exports = {
+    // Collection: users
     user: {
         name: {type: String, required: true},
         password: {type: String, required: true}
     },
+    // Collection: books
     book: {
         ISBN: {type: String, required: true},
         owner: {type: String, required: true},
@@ -11,8 +17,5 @@ module.exports = {
         year: {type: String, required: true},
         abstract: {type: String, required: true},
         metadata: {type: String, required: true}
-    },
-    topic: {
-        topic: {type: String, required: true}
     }
 };

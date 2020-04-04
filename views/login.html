@@ -61,15 +61,20 @@
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 
     <script type="text/javascript">
+        // *********************************
+        // ** Login:
+        // **   Get the username and password from web page, if both items are not '', submit the form
+        // *********************************
         function login(){
-
+            // Get data
             let username = $('#username').val();
             let password = $('#password').val();
-
+            // Check items
             if (username == '' || password == '') {
                 alert('Please input the username or password!!!');
                 return;
             }
+            // Submit the form
             document.getElementById('btlogin').submit();
         }
     </script>
@@ -107,7 +112,6 @@
                                 <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
                                 <span class="help-block small">Your strong password</span>
                             </div>
-<!--                            <input type="submit" class="btn btn-success btn-block loginbtn" value="Login" onclick="login()"></input>-->
                             <input type="submit" id="btlogin" class="btn btn-success btn-block loginbtn" onclick="login()" value="login"></input>
                             <a class="btn btn-default btn-block" href="register">Register</a>
                         </form>

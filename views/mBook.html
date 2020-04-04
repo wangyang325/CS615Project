@@ -60,14 +60,20 @@
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
-        //alert("mBook");
+        // *********************************
+        // ** Delete Row:
+        // **   Get the selected row's ISBN and Owner data, submit the form
+        // *********************************
         function deleteRow(owner, Cisbn) {
-
             document.getElementById('flg').value = 'delete';
             document.getElementById('Cisbn').value = Cisbn;
             document.getElementById('Cowner').value = owner;
             document.getElementById('SearchForm').submit();
         }
+        // *********************************
+        // ** Edit Row:
+        // **   Get the selected row's ISBN and Owner data, submit the form
+        // *********************************
         function editRow(owner, Cisbn) {
             document.getElementById('flg').value = 'add';
             document.getElementById('Cisbn').value = Cisbn;
@@ -247,7 +253,7 @@
                             <input type="hidden" name="Cisbn" id="Cisbn" value="">
                             <input type="hidden" name="Cowner" id="Cowner" value="">
                             <input type="hidden" id="flg" name="flg" value="">
-
+                            <!-- Set the list data to page -->
                             <% for (let i in data) { %>
                             <tr>
                                 <td><%= data[i].title%></td>

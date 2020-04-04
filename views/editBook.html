@@ -60,10 +60,15 @@
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
+        // *********************************
+        // ** Onload:
+        // **   When the flag is update, all items are editable, except ISBN.
+        // **   When the flag is add, all items are editable.
+        // **   When the flag is read, all items are uneditable.
+        // *********************************
         function onloadF() {
-            //alert("edit");
             let pageFlg = getQueryVariable('flg');
-            // a:add u:update r:readonly d:delete
+            // a:add u:update r:readonly
             if ( pageFlg == 'r' || pageFlg == 'd') {
                 $('#isbn').prop("readonly", true) ;
                 $('#title').prop("readonly", true) ;
@@ -95,17 +100,22 @@
 
             }
         }
+        // *********************************
+        // ** GetQueryVariable:
+        // **   Get value from Url by parameter's name
+        // *********************************
         function getQueryVariable(variable)
         {
             let query = window.location.search.substring(1);
             let vars = query.split("&");
-            for (let i=0;i<vars.length;i++) {
+            for (let i=0; i<vars.length; i++) {
                 let pair = vars[i].split("=");
-                if(pair[0] == variable){return pair[1];}
+                if(pair[0] == variable){
+                    return pair[1];
+                }
             }
             return('');
         }
-
     </script>
 </head>
 
@@ -437,15 +447,12 @@
                                                     <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
                                                         <input type="submit" id="btnSave" class="btn btn-primary waves-effect waves-light m-r-10" value="Save"></input>
                                                         <input type="hidden" id="flg" name="flg" value="<%= flg.flg%>">
-                                                        <!--                                                    <button type="button" class="btn btn-warning waves-effect waves-light">Discard-->
-                                                        <!--														</button>-->
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -517,5 +524,4 @@
     ============================================ -->
 <script src="js/main.js"></script>
 </body>
-
 </html>

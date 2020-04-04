@@ -60,10 +60,15 @@
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
+        // *********************************
+        // ** Register:
+        // **   Get the user data and submit the form.
+        // *********************************
         function register(){
             let username = $('#username').val();
             let password = $('#password').val();
             let confirmpwd = $('#confirmpwd').val();
+            // Check the confirmation of password
             if (password != confirmpwd) {
                 alert('The password and confirm password are different!!!');
                 return;
@@ -110,7 +115,6 @@
                                 <input name="confirmpwd" id="confirmpwd" placeholder="******" type="password" class="form-control">
                                 <span class="help-block small">Confirm your password</span>
                             </div>
-<!--                            <button class="btn btn-success btn-block loginbtn" onclick="register()">Register</button>-->
                             <input type="submit" id="btR" class="btn btn-success btn-block loginbtn" onclick="register()" value="Register"></input>
                             <a class="btn btn-default btn-block" href="login">Go to login</a>
                         </form>

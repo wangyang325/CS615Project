@@ -64,13 +64,18 @@
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
+        // *********************************
+        // ** Onload:
+        // **   Init the page(get the checkbox status from server and set the on page)
+        // *********************************
         function onloadF() {
+            // Get the checkbox information from hidden item(Set by server)
             let strCheck = document.getElementById("checkedId").value;
             if (strCheck != null && strCheck.trim() != '') {
                 let arr = strCheck.split(',');
                 for (let i in arr) {
                     if (arr[i].trim() != '') {
-
+                        // Set the checkbox
                         let checkbox = document.getElementsByName("checkBox");
                         for ( let i = 0; i < checkbox.length; i++) {
                             if (arr[i].trim() == document.getElementById(arr[i].trim()).value) {
@@ -81,9 +86,14 @@
                 }
             }
         }
+        // *********************************
+        // ** Click Search:
+        // **   When click the search button, get the checkbox data and submit the form.
+        // *********************************
         function clickSearch() {
             let bb = "";
             let temp = "";
+            // Get the checkbox status
             let checkbox = document.getElementsByName("checkBox");
             for ( let i = 0; i < checkbox.length; i++) {
                 if (checkbox[i].checked) {
@@ -91,11 +101,11 @@
                     bb = bb + "," +temp;
                 }
             }
+            // Set the checkbox information to hidden items to transfer to server
             document.getElementById("checkedId").value = bb.substring(1, bb.length);
             document.getElementById('SearchForm').submit();
         }
     </script>
-
 </head>
 
 <body onload="onloadF()">
@@ -190,7 +200,6 @@
     </div>
 
     <form action="/pSection" id="SearchForm" class="form-horizontal" method="post">
-
         <div class="container-fluid">
             <div class="row">
                     <div class="review-tab-pro-inner">
