@@ -210,37 +210,68 @@
                 </div>
             </div>
         </div>
+
+        <!-- Mobile Menu start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul class="mobile-menu-nav">
+                                    <li><a data-toggle="collapse" data-target="#demo" href="#">Personal Library <span
+                                            class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li><a href="/pSection">Personal Section</a>
+                                            </li>
+                                            <li><a href="/sSection">Social Section</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#others" href="#">Management <span
+                                            class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="others" class="collapse dropdown-header-top">
+                                            <li><a href="/editBook">Add Book</a></li>
+                                            <li><a href="/mBook">Book Management</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu end -->
     </div>
 
-
     <form action="/sSection" id="SearchForm" class="form-horizontal" method="post">
-
         <div class="container-fluid">
             <div class="row">
-                    <div class="review-tab-pro-inner">
-                        <h3>Choose topics:</h3>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <% for (let i in topic) { %>
-                                <label class="container1"><%= topic[i] %>
-                                    <input  id="<%= topic[i] %>" name="checkBox" type="checkbox" value="<%= topic[i] %>"></input>
-                                    <span class="checkmark"></span>
-                                </label>
-                                <% } %>
-                            </div>
+                <div class="review-tab-pro-inner">
+                    <h3>Choose topics:</h3>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <% for (let i in topic) { %>
+                            <label class="container1"><%= topic[i] %>
+                                <input  id="<%= topic[i] %>" name="checkBox" type="checkbox" value="<%= topic[i] %>"></input>
+                                <span class="checkmark"></span>
+                            </label>
+                            <% } %>
                         </div>
-                        <input type="hidden" name="checkedId" id="checkedId" value="<%= checkedId %>">
-                        <input type="hidden" name="checkAll" id="checkAll" value="<%= checkAll %>">
-                        <div class="row">
-                            <div class="review-content-section">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
-                                        <input type="submit" class="btn btn-primary waves-effect waves-light m-r-10" onclick="clickSearch();" value="Search"></input>
-                                    </div>
+                    </div>
+                    <input type="hidden" name="checkedId" id="checkedId" value="<%= checkedId %>">
+                    <input type="hidden" name="checkAll" id="checkAll" value="<%= checkAll %>">
+                    <div class="row">
+                        <div class="review-content-section">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
+                                    <input type="submit" class="btn btn-primary waves-effect waves-light m-r-10" onclick="clickSearch();" value="Search"></input>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
             <div class="color-line"></div>
             <div class="row">
