@@ -24,7 +24,8 @@ module.exports = function (app) {
         User.findOne({name: username}, function (error, doc) {
             // Error
             if (error) {
-                req.session.error = 'The network is error！';
+                req.session.error = 'The' +
+                    ' network is error！';
                 res.send(500);
             }
         }).then(function (doc) {
