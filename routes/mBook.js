@@ -17,7 +17,7 @@ module.exports = function (app) {
             return;
         }
         // Init data
-        res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: ''});
+        res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: '', user: req.session.user.name});
     });
 
     // *********************************
@@ -85,7 +85,7 @@ module.exports = function (app) {
                 console.log(error);
                 res.render('500');
             }
-            res.render('mBook', {data: books, ISBN: isbn, title: title, year: year, author: author});
+            res.render('mBook', {data: books, ISBN: isbn, title: title, year: year, author: author,user: req.session.user.name});
         });
     });
 }

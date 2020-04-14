@@ -31,7 +31,7 @@ module.exports = function (app) {
                     console.log(error);
                 } else if (doc) {
                     // Transfer the data to page
-                    res.render('editBook', {data: doc, flg: {flg: req.query.flg}});
+                    res.render('editBook', {data: doc, flg: {flg: req.query.flg},user: req.session.user.name});
                 } else {
                     // Selected data dose not exist. (Error)
                     res.render('500');
@@ -42,7 +42,7 @@ module.exports = function (app) {
         } else {
             res.render('editBook', {
                 data: {author: '', isbn: '', title: '', year: '', abstract: '', metadata: ''},
-                flg: {flg: 'a'}
+                flg: {flg: 'a'},user: req.session.user.name
             });
         }
     });
@@ -92,7 +92,7 @@ module.exports = function (app) {
             });
             console.log("render: mBook");
             // Jump to mBook page
-            res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: ''});
+            res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: '',user: req.session.user.name});
         }
         // Delete button
         else if (req.body.flg === 'd') {
@@ -105,7 +105,7 @@ module.exports = function (app) {
                 } else if (doc) {
                     // If it exists, delete the data from database
                     doc.remove();
-                    res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: ''});
+                    res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: '',user: req.session.user.name});
                 }
             });
         }
@@ -133,7 +133,7 @@ module.exports = function (app) {
                             res.render('500');
                         } else {
                             // Jump to mBook page
-                            res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: ''});
+                            res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: '',user: req.session.user.name});
                         }
                     });
                 }

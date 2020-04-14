@@ -54,10 +54,10 @@ module.exports = function (app) {
                             }
                         }
                     }
-                    res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA});
+                    res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA,user: req.session.user.name});
                 })
             } else {
-                res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA});
+                res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA,user: req.session.user.name});
             }
         })
     });
@@ -148,7 +148,7 @@ module.exports = function (app) {
                         }
                         checkB[books[j].ISBN] = books[j].ISBN;
                     }
-                    res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA});
+                    res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA,user: req.session.user.name});
                 });
             }
         });
