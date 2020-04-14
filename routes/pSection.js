@@ -1,3 +1,4 @@
+let common = require('../common/common.js');
 // *********************************
 // ** personal section module:
 // *********************************
@@ -125,6 +126,7 @@ module.exports = function (app) {
                     }
                 }
             }
+            listData = common.JsonSort(listData, 'topic');
             res.render('pSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA});
         });
     });

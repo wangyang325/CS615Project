@@ -1,3 +1,4 @@
+let common = require('../common/common.js');
 // *********************************
 // ** Social section module:
 // *********************************
@@ -148,6 +149,7 @@ module.exports = function (app) {
                         }
                         checkB[books[j].ISBN] = books[j].ISBN;
                     }
+                    listData = common.JsonSort(listData, 'topic')
                     res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA});
                 });
             }
