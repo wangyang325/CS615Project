@@ -15,7 +15,7 @@ module.exports = function (app) {
         try {
             owner = req.session.user.name;
         } catch (e) {
-            res.redirect('500');
+            res.redirect('login');
             return;
         }
         // Get book model
@@ -74,7 +74,7 @@ module.exports = function (app) {
         try {
             owner = req.session.user.name;
         } catch (e) {
-            res.redirect('500');
+            res.redirect('login');
             return;
         }
 

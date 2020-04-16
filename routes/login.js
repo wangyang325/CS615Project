@@ -8,6 +8,8 @@ module.exports = function (app) {
     // *********************************
     app.get('/login', function (req, res) {
         console.log("Get:/login run");
+        // clear session
+        req.session.user = null;
         res.render('login');
     });
 
