@@ -1,3 +1,4 @@
+let common = require('../common/common.js');
 // *********************************
 // ** Social section module:
 // *********************************
@@ -54,10 +55,10 @@ module.exports = function (app) {
                             }
                         }
                     }
-                    res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA,user: req.session.user.name});
+                    res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA});
                 })
             } else {
-                res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA,user: req.session.user.name});
+                res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA});
             }
         })
     });
@@ -148,7 +149,8 @@ module.exports = function (app) {
                         }
                         checkB[books[j].ISBN] = books[j].ISBN;
                     }
-                    res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA,user: req.session.user.name});
+                    listData = common.JsonSort(listData, 'topic')
+                    res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA});
                 });
             }
         });

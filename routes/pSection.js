@@ -1,3 +1,4 @@
+let common = require('../common/common.js');
 // *********************************
 // ** personal section module:
 // *********************************
@@ -44,7 +45,7 @@ module.exports = function (app) {
                     }
                 }
             }
-            res.render('pSection', {data: '', topic: topics, checkedId: '', checkAll: checkA,user: req.session.user.name});
+            res.render('pSection', {data: '', topic: topics, checkedId: '', checkAll: checkA});
         })
     });
 
@@ -125,7 +126,8 @@ module.exports = function (app) {
                     }
                 }
             }
-            res.render('pSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA,user: req.session.user.name});
+            listData = common.JsonSort(listData, 'topic');
+            res.render('pSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA});
         });
     });
 }
