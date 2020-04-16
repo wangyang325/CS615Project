@@ -45,7 +45,7 @@ module.exports = function (app) {
                     }
                 }
             }
-            res.render('pSection', {data: '', topic: topics, checkedId: '', checkAll: checkA});
+            res.render('pSection', {data: '', topic: topics, checkedId: '', checkAll: checkA, user: req.session.user.name});
         })
     });
 
@@ -127,7 +127,7 @@ module.exports = function (app) {
                 }
             }
             listData = common.JsonSort(listData, 'topic');
-            res.render('pSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA});
+            res.render('pSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA, user: req.session.user.name});
         });
     });
 }
