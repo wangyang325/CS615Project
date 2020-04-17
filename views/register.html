@@ -150,6 +150,22 @@
                                     });
                                 </script> <!-- added!-->
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label" >Security Question</label><br/>
+                                <label for="cars">Choose your secret question:</label>
+                                <div class="form-group">
+                                <select id="cars">
+                                    <option value="sq1">What is your Favourite Colour?</option>
+                                    <option value="sq2">What is your Birth place?</option>
+                                    <option value="sq3">What is your Moms Maiden Name?</option>
+                                </select>
+                                </div>
+                                <input type="text" title="Please enter your answer" placeholder="******" required="" value="" name="sq" id="answer" class="form-control">
+                                <span class="help-block small">Your Secret Answer</span>
+                            </div>
+
+
                             <input type="submit" id="btR" class="btn btn-success btn-block loginbtn" onclick="register()" value="Register"></input>
                             <a class="btn btn-default btn-block" href="login">Go to login</a>
                         </form>

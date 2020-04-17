@@ -1,4 +1,6 @@
-// *********************************
+
+
+ // *********************************
 // ** register module:
 // *********************************
 module.exports = function (app) {
@@ -32,7 +34,8 @@ module.exports = function (app) {
             if (doc) {
                 // If the user exists, show message
                 req.session.error = 'The user is exist！';
-                res.send({'msg': 'The user is exist！'});
+                //res.send({'msg': 'The user is exist！'});
+                res.render('userexist');
             } else {
                 // Insert the user into database
                 User.create({
