@@ -5,6 +5,33 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Register | jeweler - Material Admin Template</title>
+
+    <script type = "text/javascript">
+        <!--
+        // ************************** Form validation code *****************************
+        function validate() {
+
+            if( document.myForm.username.value == "" ) {
+                alert( "Please provide your username!" );
+                document.myForm.username.focus() ;
+                return false;
+            }
+            if( document.myForm.password.value == "" ) {
+                alert( "Please provide your password!" );
+                document.myForm.password.focus() ;
+                return false;
+            }
+
+            if( document.myForm.confirmpwd.value == "" ) {
+                alert( "Please confirm your password!" );
+                return false;
+            }
+            return( true );
+        }
+        //-->
+    </script>
+
+
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -103,7 +130,7 @@
                 </div>
                 <div class="hpanel">
                     <div class="panel-body">
-                        <form action="/register" id="registerForm" method="post">
+                        <form action="/register" name = "myForm" id="registerForm" method="post" onsubmit = "return(validate());">
                             <div class="form-group">
                                 <label class="control-label" for="username">Username</label>
                                 <input type="text" placeholder="admin" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">

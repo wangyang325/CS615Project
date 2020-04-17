@@ -31,8 +31,13 @@ module.exports = function (app) {
         }).then(function (doc) {
             if (doc) {
                 // If the user exists, show message
-                req.session.error = 'The user is exist！';
-                res.send({'msg': 'The user is exist！'});
+                req.session.error = 'The user already exists！';
+                res.send({'Message': 'The user already exist！'});
+                res.redirect('/register');
+
+                //res.redirect('/register?e=' + encodeURIComponent('The username already exists'));
+
+
             } else {
                 // Insert the user into database
                 User.create({
