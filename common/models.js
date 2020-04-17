@@ -17,6 +17,6 @@ module.exports = {
         author: {type: String, required: true},
         year: {type: String, required: true},
         abstract: {type: String, required: true},
-        metadata: {type: String, required: true}
+        metadata: {type: String, required: true}                   //topics under which books would fall
     }
 };

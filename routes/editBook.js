@@ -15,7 +15,7 @@ module.exports = function (app) {
         try {
             owner = req.session.user.name;
         } catch (e) {
-            res.redirect('500');
+            res.redirect('login');
             return;
         }
         // Render the page by flag(u: update, r: readonly, d: delete )
@@ -60,7 +60,7 @@ module.exports = function (app) {
         try {
             owner = req.session.user.name;
         } catch (e) {
-            res.redirect('500');
+            res.redirect('login');
             return;
         }
 

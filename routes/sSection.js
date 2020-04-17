@@ -1,3 +1,4 @@
+let common = require('../common/common.js');
 // *********************************
 // ** Social section module:
 // *********************************
@@ -14,7 +15,7 @@ module.exports = function (app) {
         try {
             owner = req.session.user.name;
         } catch (e) {
-            res.redirect('500');
+            res.redirect('login');
             return;
         }
         // Get book model
@@ -54,10 +55,10 @@ module.exports = function (app) {
                             }
                         }
                     }
-                    res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA,user: req.session.user.name});
+                    res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA, user: req.session.user.name});
                 })
             } else {
-                res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA,user: req.session.user.name});
+                res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA, user: req.session.user.name});
             }
         })
     });
@@ -73,7 +74,7 @@ module.exports = function (app) {
         try {
             owner = req.session.user.name;
         } catch (e) {
-            res.redirect('500');
+            res.redirect('login');
             return;
         }
 
@@ -148,7 +149,8 @@ module.exports = function (app) {
                         }
                         checkB[books[j].ISBN] = books[j].ISBN;
                     }
-                    res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA,user: req.session.user.name});
+                    listData = common.JsonSort(listData, 'topic')
+                    res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA, user: req.session.user.name});
                 });
             }
         });
