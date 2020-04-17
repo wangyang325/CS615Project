@@ -90,11 +90,16 @@ module.exports = function (app) {
         }).then(function (user) {
             if (user) {
                 // If the user exists, show message
-               if (user.answer === req.body.answer) {
+               if (user.securityAnswer == req.body.question + '' + req.body.answer) {
                    // Update password
-                   User.update({name: username}, {
-                       password: req.body.newpassword
+                   User.updateOne({name: username}, {
+                       password: req.body.password
+                   }).then(()=>{
+                       res.send("Password reset")
                    })
+               }else
+               {
+                   res.send("Incorrect answer")
                }
             } else {
 

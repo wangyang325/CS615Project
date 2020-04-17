@@ -40,7 +40,8 @@ module.exports = function (app) {
                 // Insert the user into database
                 User.create({
                     name: username,
-                    password: req.body.password
+                    password: req.body.password,
+                    securityAnswer:req.body.question + '' +req.body.answer
                 }, function (error, doc) {
                     // Error
                     if (error) {
