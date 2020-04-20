@@ -60,7 +60,6 @@
 		============================================ -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <script type="text/javascript">
-        // *********************************
         // ** Onload:
         // **   When the flag is update, all items are editable, except ISBN.
         // **   When the flag is add, all items are editable.
@@ -116,6 +115,86 @@
             }
             return('');
         }
+
+        // *********************************
+        // ** ISBN Validator
+        // ** Gets ISBN as input and validates if the value is an ISBN or not.
+        // ** Checks for both 10 and 13 digit ISBNs
+        // *********************************
+
+        function validateISBN( ) {
+            //getting user's entered isbn
+            var subject = document.getElementById("isbn").value;
+            // Checks for ISBN-10 or ISBN-13 format
+            var regex = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/;
+           //checks if the isbn entered by user matches the regular expression
+            if (regex.test(subject)) {
+                // Remove non ISBN digits, then split into an array
+                var chars = subject.replace(/[- ]|^ISBN(?:-1[03])?:?/g, "").split("");
+                // Remove the final ISBN digit from `chars`, and assign it to `last`
+                var last = chars.pop();
+                var sum = 0;
+                var check, i;
+
+                if (chars.length == 9) {
+                    // Compute the ISBN-10 check digit
+                    chars.reverse();
+                    for (i = 0; i < chars.length; i++) {
+                        sum += (i + 2) * parseInt(chars[i], 10);
+                    }
+                    check = 11 - (sum % 11);
+                    if (check == 10) {
+                        check = "X";
+                    } else if (check == 11) {
+                        check = "0";
+                    }
+                } else {
+                    // Compute the ISBN-13 check digit
+                    for (i = 0; i < chars.length; i++) {
+                        sum += (i % 2 * 2 + 1) * parseInt(chars[i], 10);
+                    }
+                    check = 10 - (sum % 10);
+                    if (check == 10) {
+                        check = "0";
+                    }
+                }
+
+                if (check == last) {
+                    alert("Valid ISBN");
+                } else {
+                    alert("Invalid ISBN check digit");
+                }
+            } else {
+                alert("Invalid ISBN");
+            }
+
+        } //function closing
+        //***********************************************************************
+/*        ************************Regular Expression Explanation**************
+           ***********************************************************************
+        ^
+        (?:ISBN(?:-1[03])?:?\ )?  # Optional ISBN/ISBN-10/ISBN-13 identifier.
+        (?=                       # Basic format pre-checks (lookahead):
+        [0-9X]{10}$             #   Require 10 digits/Xs (no separators).
+        |                        #  Or:
+        (?=(?:[0-9]+[-\ ]){3})  #   Require 3 separators
+            [-\ 0-9X]{13}$          #     out of 13 characters total.
+        |                        #  Or:
+        97[89][0-9]{10}$        #   978/979 plus 10 digits (13 total).
+        |                        #  Or:
+        (?=(?:[0-9]+[-\ ]){4})  #   Require 4 separators
+            [-\ 0-9]{17}$           #     out of 17 characters total.
+        )                         # End format pre-checks.
+        (?:97[89][-\ ]?)?         # Optional ISBN-13 prefix.
+            [0-9]{1,5}[-\ ]?          # 1-5 digit group identifier.
+            [0-9]+[-\ ]?[0-9]+[-\ ]?  # Publisher and title identifiers.
+            [0-9X]                    # Check digit.
+            $
+//**********************************************************************************
+//*********************************************************************************
+   */
+
+
     </script>
 </head>
 
@@ -307,7 +386,7 @@
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <label class="control-label" for="year">Publish Year:</label>
-                                                        <input id="year" name="year" type="number" class="form-control" value="<%= data.year%>"
+                                                        <input id="year" name="year" type="string" class="form-control" value="<%= data.year%>"
                                                                placeholder="Publish Year" required>
                                                     </div>
                                                 </div>
@@ -316,7 +395,7 @@
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <label class="control-label" for="author">ISBN:</label>
-                                                        <input id="isbn" name="isbn" type="number" class="form-control" value="<%= data.ISBN%>"
+                                                        <input id="isbn" name="isbn" type="string" class="form-control" value="<%= data.ISBN%>"
                                                                placeholder="ISBN" required>
                                                     </div>
                                                 </div>
@@ -353,7 +432,7 @@
                                             <div class="review-content-section">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
-                                                        <input type="submit" id="btnSave" class="btn btn-primary waves-effect waves-light m-r-10" value="Save"></input>
+                                                        <input type="submit" id="btnSave" class="btn btn-primary waves-effect waves-light m-r-10" value="Save" name="btnSave" onclick="validateISBN()"></input>
                                                         <input type="hidden" id="flg" name="flg" value="<%= flg.flg%>">
                                                     </div>
                                                 </div>
