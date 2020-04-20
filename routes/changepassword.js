@@ -65,16 +65,16 @@ module.exports = function (app) {
     // ** Get: /register
     // **   Init process for the page of register.
     // *********************************
-    app.get('/reset', function (req, res) {
-        console.log("Get:/reset run");
-        res.render('reset');
+    app.get('/changepassword', function (req, res) {
+        console.log("Get:/changepassword run");
+        res.render('changepassword');
     });
 
     // *********************************
     // ** Post: /register
     // **   Register the user into database
     // *********************************
-    app.post('/reset', function (req, res) {
+    app.post('/changepassword', function (req, res) {
         console.log("Post:/reset run");
         // Get user data
         let User = global.dbHelper.getModel('user');
@@ -90,17 +90,17 @@ module.exports = function (app) {
         }).then(function (user) {
             if (user) {
                 // If the user exists, show message
-               if (user.securityAnswer == req.body.question + '' + req.body.answer) {
-                   // Update password
-                   User.updateOne({name: username}, {
-                       password: req.body.password
-                   }).then(()=>{
-                       res.send("Password reset")
-                   })
-               }else
-               {
-                   res.render("incorrectanswer")
-               }
+                if (user.password == req.body.cpassword) {
+                    // Update password
+                    User.updateOne({name: username}, {
+                        password: req.body.password
+                    }).then(()=>{
+                        res.send("Password changed")
+                    })
+                }else
+                {
+                    res.render("incorrectpassword")
+                }
             } else {
 
                 res.render('nouser');
