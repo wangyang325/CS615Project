@@ -1,4 +1,6 @@
-// *********************************
+
+
+ // *********************************
 // ** register module:
 // *********************************
 module.exports = function (app) {
@@ -31,18 +33,15 @@ module.exports = function (app) {
         }).then(function (doc) {
             if (doc) {
                 // If the user exists, show message
-                req.session.error = 'The user already exists！';
-                res.send({'Message': 'The user already exist！'});
-                res.redirect('/register');
-
-                //res.redirect('/register?e=' + encodeURIComponent('The username already exists'));
-
-
+                req.session.error = 'The user is exist！';
+                //res.send({'msg': 'The user is exist！'});
+                res.render('userexist');
             } else {
                 // Insert the user into database
                 User.create({
                     name: username,
-                    password: req.body.password
+                    password: req.body.password,
+                    securityAnswer:req.body.question + '' +req.body.answer
                 }, function (error, doc) {
                     // Error
                     if (error) {

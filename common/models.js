@@ -6,7 +6,8 @@ module.exports = {
     // Collection: users
     user: {
         name: {type: String, required: true},
-        password: {type: String, required: true}
+        password: {type: String, required: true},
+        securityAnswer:{type:String,required:true}
     },
     // Collection: books
     book: {
