@@ -32,13 +32,16 @@ module.exports = function (app) {
             } else if (!doc) {
                 // The user does not exist. (Error)
                 req.session.error = 'The user dose not exist!';
-                res.send({'msg': 'The user dose not exist!!'});
+               // res.send({'msg': 'The user dose not exist!!'});
+                res.render("login", {'msg': 'The user dose not exist!!'})
+
             }
         }).then(function (doc) {
             // Check the password
             if (password != doc.password) {
                 req.session.error = "The password is wrong!";
-                res.send({'msg': 'The password is wrong!!'});
+               // res.send({'msg': 'The password is wrong!!'});
+                res.render("login", {'msg': 'The password is wrong!!'})
             } else {
                 // Check Ok, jump to personal section page
                 req.session.user = doc;

@@ -5,10 +5,7 @@ module.exports = function ( app ) {
     require('./login')(app);
     require('./register')(app);
     require('./reset')(app);
-    require('./userexist')(app);
-    require('./incorrectanswer')(app);
     require('./changepassword')(app);
-    require('./incorrectpassword')(app);
     require('./editBook')(app);
     require('./500')(app);
     require('./mBook')(app);
