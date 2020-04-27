@@ -34,8 +34,7 @@ module.exports = function (app) {
             if (doc) {
                 // If the user exists, show message
                 req.session.error = 'The user is exist！';
-                //res.send({'msg': 'The user is exist！'});
-                //res.render('userexist');
+
                 res.render("register", {'msg': 'The user already exist!!'})
 
             } else {

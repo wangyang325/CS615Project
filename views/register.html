@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Register | jeweler - Material Admin Template</title>
-    <div>
+    <div> <!--Displaying the success and error message after validating the form-->
         <% if (locals.msg) { %>
         <div class="alert alert-danger" role="alert">
             <%= locals.msg %>
@@ -166,7 +166,8 @@
                                 <meter max="4" id="password-strength"></meter> <!-- added !-->
                                 <span class="help-block small">Confirm your password</span>
 
-                                <!-- added!-->           <p id="password-strength-text"></p>
+                                          <p id="password-strength-text"></p>
+                                <!-- Password Strength Meter-->
                                 <script type="text/javascript">
                                     var strength = {
                                         0: "Weakest",

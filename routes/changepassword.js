@@ -41,13 +41,13 @@ module.exports = function (app) {
                     })
                 }else
                 {
-                    //res.render("incorrectpassword")
+                    // show error message if the old password is wrong
                     res.render("changepassword", {'msg': 'Incorrect Password!!'})
 
                 }
             } else {
 
-               // res.render('nouser');
+               // show error if the user name is not exists.
                 res.render("changepassword", {'msg': 'No User Exists!!'})
             }
         })

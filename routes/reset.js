@@ -39,16 +39,17 @@ module.exports = function (app) {
                    User.updateOne({name: username}, {
                        password: req.body.password
                    }).then(()=>{
+                       // show success message once reset gets done !!
                        res.render("reset", {'success': 'Password Reset done successfully!!'})
                    })
                }else
                {
-                   //res.render("incorrectanswer")
+                   // show error if the security answer entered is not correct !!
                    res.render("reset", {'msg': 'Incorrect security answer.Please provide valid answer!!'})
 
                }
             } else {
-
+                // show error if the there is no user exists
                 res.render("reset", {'msg': 'No User exists .Please sign up!!'})
             }
         })
