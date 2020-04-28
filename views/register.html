@@ -50,7 +50,6 @@
         //-->
     </script>
 
-
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -108,7 +107,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>  <!-- added !-->
 
-
     <script type="text/javascript">
         // *********************************
         // ** Register:
@@ -122,10 +120,12 @@
             if (password != confirmpwd) {
                 alert('The password and confirm password are different!!!');
                 return;
+            } else {
+                document.getElementById('btR').submit();
             }
-            document.getElementById('btR').submit();
         };
     </script>
+    <script src="js/commonL.js"></script>
 </head>
 
 <body>
@@ -165,37 +165,7 @@
                                 <input name="confirmpwd" id="confirmpwd" placeholder="******" type="password" class="form-control">
                                 <meter max="4" id="password-strength"></meter> <!-- added !-->
                                 <span class="help-block small">Confirm your password</span>
-
-                                          <p id="password-strength-text"></p>
-                                <!-- Password Strength Meter-->
-                                <script type="text/javascript">
-                                    var strength = {
-                                        0: "Weakest",
-                                        1: "Weak",
-                                        2: "OK",
-                                        3: "Good",
-                                        4: "Strong"
-                                    }
-
-                                    var password = document.getElementById('password');
-                                    var meter = document.getElementById('password-strength');
-                                    var text = document.getElementById('password-strength-text');
-
-                                    password.addEventListener('input', function() {
-                                        var val = password.value;
-                                        var result = zxcvbn(val);
-
-                                        // This updates the password strength meter
-                                        meter.value = result.score;
-
-                                        // This updates the password meter text
-                                        if (val !== "") {
-                                            text.innerHTML = "Password Strength: " + strength[result.score];
-                                        } else {
-                                            text.innerHTML = "";
-                                        }
-                                    });
-                                </script> <!-- added!-->
+                                <p id="password-strength-text"></p>
                             </div>
 
                             <div class="form-group">
@@ -211,7 +181,6 @@
                                 <input type="text" title="Please enter your answer" placeholder="******" required="" value="" name="answer" id="answer" class="form-control">
                                 <span class="help-block small">Your Secret Answer</span>
                             </div>
-
 
                             <input type="submit" id="btR" class="btn btn-success btn-block loginbtn" onclick="register()" value="Register"></input>
                             <a class="btn btn-default btn-block" href="login">Go to login</a>
