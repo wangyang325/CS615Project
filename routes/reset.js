@@ -1,13 +1,10 @@
-
-
-
 // *********************************
 // ** register module:
 // *********************************
 module.exports = function (app) {
     // *********************************
-    // ** Get: /register
-    // **   Init process for the page of register.
+    // ** Get: /reset
+    // **   Reset Password.
     // *********************************
     app.get('/reset', function (req, res) {
         console.log("Get:/reset run");
@@ -15,8 +12,8 @@ module.exports = function (app) {
     });
 
     // *********************************
-    // ** Post: /register
-    // **   Register the user into database
+    // ** Post: /reset
+    // **   Reset Password
     // *********************************
     app.post('/reset', function (req, res) {
         console.log("Post:/reset run");
@@ -46,7 +43,6 @@ module.exports = function (app) {
                {
                    // show error if the security answer entered is not correct !!
                    res.render("reset", {'msg': 'Incorrect security answer.Please provide valid answer!!'})
-
                }
             } else {
                 // show error if the there is no user exists
