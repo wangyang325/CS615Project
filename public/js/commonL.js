@@ -5,7 +5,6 @@ let strength = {
     3: "Good",
     4: "Strong"
 }
-
 let password = document.getElementById('password');
 let meter = document.getElementById('password-strength');
 let text = document.getElementById('password-strength-text');
@@ -13,7 +12,6 @@ let text = document.getElementById('password-strength-text');
 password.addEventListener('input', function() {
     let val = password.value;
     let result = zxcvbn(val);
-
     // This updates the password strength meter
     meter.value = result.score;
 
