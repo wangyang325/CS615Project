@@ -121,20 +121,22 @@
         // ** Gets ISBN as input and validates if the value is an ISBN or not.
         // ** Checks for both 10 and 13 digit ISBNs
         // *********************************
-
-        function validateInput( ) {
+        function checkISBN() {
             //getting user's entered isbn
-            var subject = document.getElementById("isbn").value;
+            let subject = document.getElementById("isbn").value;
+            if (subject == '') {
+                return true;
+            }
             // Checks for ISBN-10 or ISBN-13 format
-            var regex = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/;
-           //checks if the isbn entered by user matches the regular expression
+            let regex = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/;
+            //checks if the isbn entered by user matches the regular expression
             if (regex.test(subject)) {
                 // Remove non ISBN digits, then split into an array
-                var chars = subject.replace(/[- ]|^ISBN(?:-1[03])?:?/g, "").split("");
+                let chars = subject.replace(/[- ]|^ISBN(?:-1[03])?:?/g, "").split("");
                 // Remove the final ISBN digit from `chars`, and assign it to `last`
-                var last = chars.pop();
-                var sum = 0;
-                var check, i;
+                let last = chars.pop();
+                let sum = 0;
+                let check, i;
 
                 if (chars.length == 9) {
                     // Compute the ISBN-10 check digit
@@ -162,115 +164,89 @@
                 if (check == last) {
                     //alert("Valid ISBN");
                 } else {
-                    alert("Invalid ISBN. Please enter a 10 or 13 digit ISBN e.g. 978-1-4842-2588-2, 1-292-09613-6");
+                    return false;
                 }
             } else {
-                alert("Invalid ISBN");
+                return false;
+            }
+            return true;
+        }
+
+        // *********************************
+        // ** Metadata Validator
+        // ** Gets metadata tags as input and validates if the value is in correct format or not.
+        // ** Checks whether different tags are splitted by comma or not
+        // ** Also checks if the user inputs a metadata tag without brackets around
+        // *********************************
+        function checkMetadata() {
+            //getting metadata as input:
+            let metadata= document.getElementById("metadata").value;
+            if (metadata == '') {
+                return true;
             }
 
+            if (metadata.match(',')) {
+                //splitting metadata tags on the basis of commas & storring them in array:
+                let topics = metadata.split(',');
 
-            //***********************************************************************
-            /*        ************************Regular Expression Explanation**************
-                       ***********************************************************************
-                    ^
-                    (?:ISBN(?:-1[03])?:?\ )?  # Optional ISBN/ISBN-10/ISBN-13 identifier.
-                    (?=                       # Basic format pre-checks (lookahead):
-                    [0-9X]{10}$             #   Require 10 digits/Xs (no separators).
-                    |                        #  Or:
-                    (?=(?:[0-9]+[-\ ]){3})  #   Require 3 separators
-                        [-\ 0-9X]{13}$          #     out of 13 characters total.
-                    |                        #  Or:
-                    97[89][0-9]{10}$        #   978/979 plus 10 digits (13 total).
-                    |                        #  Or:
-                    (?=(?:[0-9]+[-\ ]){4})  #   Require 4 separators
-                        [-\ 0-9]{17}$           #     out of 17 characters total.
-                    )                         # End format pre-checks.
-                    (?:97[89][-\ ]?)?         # Optional ISBN-13 prefix.
-                        [0-9]{1,5}[-\ ]?          # 1-5 digit group identifier.
-                        [0-9]+[-\ ]?[0-9]+[-\ ]?  # Publisher and title identifiers.
-                        [0-9X]                    # Check digit.
-                        $
-            //**********************************************************************************
-            //*********************************************************************************
-               */
-
-
-
-
-            // *********************************
-            // ** Metadata Validator
-            // ** Gets metadata tags as input and validates if the value is in correct format or not.
-            // ** Checks whether different tags are splitted by comma or not
-            //*** Also checks if the user inputs a metadata tag without brackets around
-            // *********************************
-
-            //getting metadata as input:
-            var metadata= document.getElementById("metadata").value;
-            var topic,i,len,substring1,bracket_occurence;
-            var metadata_format=false;
-
-            //splitting metadata tags on the basis of commas & storring them in array:
-            var topics = metadata.split(',');
-
-            //for each metadata tag / topic, it validates the format using loop:
-            for(i=0;i<topics.length;i++)
-            {
-                //storing the metadata tags (topics) one by one in "topic" variable:
-                topic=topics[i];
-
-                //removing whitespaces from the metadata tag (topic):
-                topic.trim();
-
-                //finding closing bracket "]" in metadata tag (topic) string
-                if(topic.match("]"))
+                //for each metadata tag / topic, it validates the format using loop:
+                for(let i=0; i<topics.length; i++)
                 {
-                    //finding the position of first occurence of closing bracket "]" in metadata tag
-                    bracket_occurence= topic.indexOf("]");
-
-                    //getting the substring from metadata tag starting after closing bracket
-                    substring1=topic.substring(bracket_occurence+1, topic.length);
-
-                    //finding closing bracket "]" in metadata tag (topic) string again:
-                    //if closing bracket is found again, it means user had entered metadata tags without comma:
-                    if(substring1.match("]"))  //detects invalid input such as [topic1][topic2], that is, anything without comma:
-                    {
-                        //does this once finds that metadata format is incorrect:
-                        metadata_format=false;
-
-                        //stoping the process of metadata checks as its confirmed that input is incorrect:
-                        break;
+                    //storing the metadata tags (topics) one by one in "topic" variable:
+                    let topic=topics[i];
+                    if (checkTopic(topic) == false) {
+                        return false;
                     }
                 }
-
-                //to make sure that first character of metadata tage is '[' and last is ']'
-                if(topic.charAt(0)=='[' && topic.endsWith("]"))
-                {
-                    console.log("the topic: " + topic + "has a valid format");
-                    metadata_format=true;
-                }
-                else
-                {
-                    console.log("the topic: " + topic + "has a valid format");
-                    metadata_format=false;
-                    break;
+            }
+            else {
+                if (checkTopic(metadata) == false) {
+                    return false;
                 }
             }
-            if(metadata_format==true)
-            {
-                console.log("all topics are entered in valid format");
+            return true;
+        }
+        // *********************************
+        // ** Check Topic
+        // ** [Topic]
+        // *********************************
+        function checkTopic(topic) {
+            let rs = true;
+            //removing whitespaces from the metadata tag (topic):
+            topic.trim();
+            if(topic.length < 3) {
+                rs= false;
+            } else {
+                if(topic.charAt(0)=='[' && topic.endsWith("]")) {
+                    rs= true;
+                }
+                else {
+                    rs= false;
+                }
             }
-            else
-            {
-                console.log("at least one of the topic has invalid format");
-                alert("Please enter metadata tags in valid format e.g [Topic1],[Topic2],[Topic3]");
+            return rs;
+        }
+        // *********************************
+        // ** Validator
+        // *********************************
+        function validateInput() {
+            let msg1 = "Invalid Metadata. e.g: [Topic1],[Topic2]";
+            let msg2 ="Invalid ISBN. Please enter a 10 or 13 digit ISBN e.g. 978-1-4842-2588-2, 1-292-09613-6";
+            let msg = '';
+            if (checkISBN() == false) {
+                msg = msg + '\n' + msg2;
             }
-
-
-
-        } //function closing
-
-
-
+            if (checkMetadata() == false) {
+                msg = msg + '\n' + msg1;
+            }
+            if (msg == '') {
+                return true;
+            }
+            else {
+                alert(msg);
+                return false;
+            }
+        }
     </script>
 </head>
 
@@ -423,6 +399,25 @@
         <!-- Mobile Menu end -->
     </div>
     <!-- Single pro tab start-->
+    <div> <!--Displaying the success and error message after validating the form-->
+        <% if (locals.msg) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= locals.msg %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+
+        <% if (locals.success) { %>
+        <div class="alert alert-success" role="alert">
+            <%= locals.success %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+    </div>
     <div class="single-product-tab-area mg-tb-15">
         <!-- Single pro tab review Start-->
         <div class="single-pro-review-area">
@@ -462,7 +457,7 @@
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
                                                         <label class="control-label" for="year">Publish Year:</label>
-                                                        <input id="year" name="year" type="string" class="form-control" value="<%= data.year%>"
+                                                        <input id="year" name="year" type="number" minlength="4" maxlength="4" class="form-control" value="<%= data.year%>"
                                                                placeholder="Publish Year" required>
                                                     </div>
                                                 </div>
@@ -508,7 +503,7 @@
                                             <div class="review-content-section">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-left mg-b-pro-edt custom-pro-edt-ds">
-                                                        <input type="submit" id="btnSave" class="btn btn-primary waves-effect waves-light m-r-10" value="Save" name="btnSave" onclick="validateInput()"></input>
+                                                        <input type="submit" id="btnSave" class="btn btn-primary waves-effect waves-light m-r-10" value="Save" name="btnSave" onclick="return validateInput()"></input>
                                                         <input type="hidden" id="flg" name="flg" value="<%= flg.flg%>">
                                                     </div>
                                                 </div>

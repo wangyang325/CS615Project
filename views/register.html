@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Register | jeweler - Material Admin Template</title>
+    <title>Register</title>
     <div> <!--Displaying the success and error message after validating the form-->
         <% if (locals.msg) { %>
         <div class="alert alert-danger" role="alert">
@@ -128,119 +128,119 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <div class="color-line"></div>
-    <div class="container-fluid">
-        <div class="row">
-            <br>
-            <br>
-        </div>
+<div class="color-line"></div>
+<div class="container-fluid">
+    <div class="row">
+        <br>
+        <br>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
-            <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
-                <div class="text-center m-b-md custom-login">
-                    <h3>REGISTRATION</h3>
-                </div>
-                <div class="hpanel">
-                    <div class="panel-body">
-                        <form action="/register" name = "myForm" id="registerForm" method="post" onsubmit = "return(validate());">
-                            <div class="form-group">
-                                <label class="control-label" for="username">Username</label>
-                                <input type="text" placeholder="admin" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
-                                <span class="help-block small">Your unique username to app</span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="password">Password</label>
-                                <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
-                                <span class="help-block small">Your password</span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="confirmpwd">Repeat Password</label>
-                                <input name="confirmpwd" id="confirmpwd" placeholder="******" type="password" class="form-control">
-                                <meter max="4" id="password-strength"></meter> <!-- added !-->
-                                <span class="help-block small">Confirm your password</span>
-                                <p id="password-strength-text"></p>
-                            </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+        <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="text-center m-b-md custom-login">
+                <h3>REGISTRATION</h3>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                    <form action="/register" name = "myForm" id="registerForm" method="post" onsubmit = "return(validate());">
+                        <div class="form-group">
+                            <label class="control-label" for="username">Username</label>
+                            <input type="text" placeholder="admin" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
+                            <span class="help-block small">Your unique username to app</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password</label>
+                            <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
+                            <span class="help-block small">Your password</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="confirmpwd">Repeat Password</label>
+                            <input name="confirmpwd" id="confirmpwd" placeholder="******" type="password" class="form-control">
+                            <meter max="4" id="password-strength"></meter> <!-- added !-->
+                            <span class="help-block small">Confirm your password</span>
+                            <p id="password-strength-text"></p>
+                        </div>
 
+                        <div class="form-group">
+                            <label class="control-label" >Security Question</label><br/>
+                            <label for="question">Choose your secret question:</label>
                             <div class="form-group">
-                                <label class="control-label" >Security Question</label><br/>
-                                <label for="question">Choose your secret question:</label>
-                                <div class="form-group">
                                 <select id="question" name="question">
                                     <option value="sq1">What is your Favourite Colour?</option>
                                     <option value="sq2">What is your Birth place?</option>
                                     <option value="sq3">What is your Moms Maiden Name?</option>
                                 </select>
-                                </div>
-                                <input type="text" title="Please enter your answer" placeholder="******" required="" value="" name="answer" id="answer" class="form-control">
-                                <span class="help-block small">Your Secret Answer</span>
                             </div>
+                            <input type="text" title="Please enter your answer" placeholder="******" required="" value="" name="answer" id="answer" class="form-control">
+                            <span class="help-block small">Your Secret Answer</span>
+                        </div>
 
-                            <input type="submit" id="btR" class="btn btn-success btn-block loginbtn" onclick="register()" value="Register"></input>
-                            <a class="btn btn-default btn-block" href="login">Go to login</a>
-                        </form>
-                    </div>
+                        <input type="submit" id="btR" class="btn btn-success btn-block loginbtn" onclick="register()" value="Register"></input>
+                        <a class="btn btn-default btn-block" href="login">Go to login</a>
+                    </form>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
         </div>
-        <div class="row">
-            <div class="col-md-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <p>Copyright &copy; 2020 G10 All rights reserved.</p>
-            </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <p>Copyright &copy; 2020 G10 All rights reserved.</p>
         </div>
     </div>
-    <!-- jquery
-		============================================ -->
-    <script src="js/vendor/jquery-1.11.3.min.js"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="js/wow.min.js"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
-    <!-- meanmenu JS
-		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-    <!-- owl.carousel JS
-		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- sticky JS
-		============================================ -->
-    <script src="js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
-		============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <!-- mCustomScrollbar JS
-		============================================ -->
-    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
-    <!-- tab JS
-		============================================ -->
-    <script src="js/tab.js"></script>
-    <!-- icheck JS
-		============================================ -->
-    <script src="js/icheck/icheck.min.js"></script>
-    <script src="js/icheck/icheck-active.js"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="js/plugins.js"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="js/main.js"></script>
-    <script src="js/commonL.js"></script>
+</div>
+<!-- jquery
+    ============================================ -->
+<script src="js/vendor/jquery-1.11.3.min.js"></script>
+<!-- bootstrap JS
+    ============================================ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- wow JS
+    ============================================ -->
+<script src="js/wow.min.js"></script>
+<!-- price-slider JS
+    ============================================ -->
+<script src="js/jquery-price-slider.js"></script>
+<!-- meanmenu JS
+    ============================================ -->
+<script src="js/jquery.meanmenu.js"></script>
+<!-- owl.carousel JS
+    ============================================ -->
+<script src="js/owl.carousel.min.js"></script>
+<!-- sticky JS
+    ============================================ -->
+<script src="js/jquery.sticky.js"></script>
+<!-- scrollUp JS
+    ============================================ -->
+<script src="js/jquery.scrollUp.min.js"></script>
+<!-- mCustomScrollbar JS
+    ============================================ -->
+<script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+<!-- metisMenu JS
+    ============================================ -->
+<script src="js/metisMenu/metisMenu.min.js"></script>
+<script src="js/metisMenu/metisMenu-active.js"></script>
+<!-- tab JS
+    ============================================ -->
+<script src="js/tab.js"></script>
+<!-- icheck JS
+    ============================================ -->
+<script src="js/icheck/icheck.min.js"></script>
+<script src="js/icheck/icheck-active.js"></script>
+<!-- plugins JS
+    ============================================ -->
+<script src="js/plugins.js"></script>
+<!-- main JS
+    ============================================ -->
+<script src="js/main.js"></script>
+<script src="js/commonL.js"></script>
 </body>
 
 </html>

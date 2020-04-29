@@ -133,9 +133,16 @@ module.exports = function (app) {
                             res.render('500');
                         } else {
                             // Jump to mBook page
-                            res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: '',user: req.session.user.name});
+                            res.render('mBook', {data: '', ISBN: '', title: '', year: '', author: '', user: req.session.user.name});
                         }
                     });
+                }
+                // if the book is existing
+                else {
+                    // If the user exists, show message
+                    // Transfer the data to page
+                    res.render('editBook', {data: doc, flg: {flg: req.query.flg}, user: req.session.user.name, 'msg': 'The book already exist!!'});
+                    req.session.error = 'The book is exist！';
                 }
             });
         }
