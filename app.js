@@ -9,6 +9,7 @@ let session = require('express-session');
 let mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 global.dbHelper = require( './common/dbHelper' );
+// Db connect
 let DB_URL = "mongodb://127.0.0.1:27017/Test";
 global.db = mongoose.connect(DB_URL, function(err, db) {
         if (err) throw err;
