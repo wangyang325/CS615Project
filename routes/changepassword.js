@@ -1,11 +1,10 @@
-
 // *********************************
-// ** register module:
+// ** change password module:
 // *********************************
 module.exports = function (app) {
     // *********************************
-    // ** Get: /register
-    // **   Init process for the page of register.
+    // ** Get: /changepassword
+    // **   Init process for the page of changepassword.
     // *********************************
     app.get('/changepassword', function (req, res) {
         console.log("Get:/changepassword run");
@@ -13,8 +12,8 @@ module.exports = function (app) {
     });
 
     // *********************************
-    // ** Post: /register
-    // **   Register the user into database
+    // ** Post: /changepassword
+    // **   Change Password
     // *********************************
     app.post('/changepassword', function (req, res) {
         console.log("Post:/reset run");
@@ -43,10 +42,8 @@ module.exports = function (app) {
                 {
                     // show error message if the old password is wrong
                     res.render("changepassword", {'msg': 'Incorrect Password!!'})
-
                 }
             } else {
-
                // show error if the user name is not exists.
                 res.render("changepassword", {'msg': 'No User Exists!!'})
             }

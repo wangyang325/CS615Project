@@ -9,7 +9,8 @@ let session = require('express-session');
 let mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 global.dbHelper = require( './common/dbHelper' );
-let DB_URL = "mongodb://18.202.23.180:27017/Test";
+// Db connect
+let DB_URL = "mongodb://192.168.121.26:27017/Test";
 global.db = mongoose.connect(DB_URL, function(err, db) {
         if (err) throw err;
         console.log("Database created!");
