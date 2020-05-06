@@ -24,43 +24,67 @@ module.exports = function (app) {
         // Get topics from book list
         let topics = new Array();
         let checkA = '';
-        // Get the book that shared by over 3 users
-        Book.aggregate([
-            {$group: {_id: '$ISBN', total: {$sum: 1}}},
-            {$match: {total: {$gt: 2}}}
-        ], (err, books) => {
-            let conArr = new Array();
-            for (let i in books) {
-                conArr.push({ISBN: books[i]._id});
+
+        // find all books
+        Book.find({}, function (err, books) {
+            if (err) {
+                console.log(error);
+                res.render('500');
             }
-            if (conArr.length > 0) {
-                let condition = {$or: conArr};
-                Book.find(condition, function (err, books) {
-                    if (err) {
-                        console.log(error);
-                        res.render('500');
-                    }
-                }).then(function (books) {
+        }).then(function (books) {
+            // find owner
+            let myBooks = new Array();
+            let rsBooks = new Array();
+            // get my books
+            for (let i in books) {
+                if (books[i].owner == owner) {
+                    myBooks.push(books[i]);
+                }
+            }
+            // share less 3 books, cannot see others
+            if (myBooks.length < 2) {
+                res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA, user: req.session.user.name});
+            } else {
+                let myUser = new Map();
+                // get the users who has the same books with login user
+                for (let j in myBooks) {
+                    let myBookIsbn = myBooks[j].ISBN;
                     for (let i in books) {
-                        // Get topic from metadata
-                        let meta = books[i].metadata;
-                        let ary = meta.split(',');
-                        for (let j in ary) {
-                            let nowS = ary[j];
-                            nowS = nowS.replace('[', '');
-                            nowS = nowS.replace(']', '');
-                            if (topics[nowS] == null) {
-                                topics[nowS] = nowS;
-                                checkA = checkA + ',' + nowS;
+                        if (books[i].owner != owner) {
+                            if (myBookIsbn == books[i].ISBN) {
+                                if (myUser.get(books[i].owner) == null) {
+                                    myUser.set(books[i].owner, 1);
+                                }
+                                else {
+                                    myUser.set(books[i].owner, myUser.get(books[i].owner) + 1);
+                                }
                             }
                         }
                     }
-                    res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA, user: req.session.user.name});
-                })
-            } else {
+                }
+                // get search condition from books
+                for (let i in books) {
+                    if (books[i].owner != owner) {
+                        if (myUser.get(books[i].owner) > 2 ) {
+                            rsBooks.push(books[i]);
+                            // Get topic from metadata
+                            let meta = books[i].metadata;
+                            let ary = meta.split(',');
+                            for (let k in ary) {
+                                let nowS = ary[k];
+                                nowS = nowS.replace('[', '');
+                                nowS = nowS.replace(']', '');
+                                if (topics[nowS] == null) {
+                                    topics[nowS] = nowS;
+                                    checkA = checkA + ',' + nowS;
+                                }
+                            }
+                        }
+                    }
+                }
                 res.render('sSection', {data: '', topic: topics, checkedId: '', checkAll: checkA, user: req.session.user.name});
             }
-        })
+        });
     });
 
     // *********************************
@@ -90,7 +114,7 @@ module.exports = function (app) {
                 topicAll.push(ary[j]);
             }
         }
-
+        // checkbox for condition
         if (typeof (checkbox) === "undefined") {
             checkbox = '';
         }
@@ -108,50 +132,63 @@ module.exports = function (app) {
         // Search the data by checked topic
         let listData = new Array();
         let Book = global.dbHelper.getModel('book');
-        // Condition for metadata
-        let condition = new Array();
-        let conArr1 = new Array();
-        for (let i in topicData) {
-            conArr1.push({metadata: {$regex: '[' + topicData[i] + ']', $options: 'i'}});
-        }
-        condition = {$or: conArr1};
 
-        // Get the book that shared by over 3 users
-        let heat = new Array();
-        Book.aggregate([
-            {$group: {_id: '$ISBN', total: {$sum: 1}}},
-            {$match: {total: {$gt: 2}}}
-        ], (err, books) => {
-            let conArr2 = new Array();
-            for (let i in books) {
-                conArr2.push(books[i]._id);
-                heat[books[i]._id] = books[i].total;
+        // find all books
+        Book.find({}, function (err, books) {
+            if (err) {
+                console.log(error);
+                res.render('500');
             }
-            if (conArr2.length > 0) {
-                condition['ISBN'] = {$in: conArr2};
-                console.log(condition);
-                Book.find(condition, function (err, books) {
-                    if (err) {
-                        console.log(error);
-                        res.render('500');
-                    }
-                }).then(function (books) {
-                    // Edit the book list
-                    let checkB = new Array();
-                    for (let j in books) {
-                        if (checkB[books[j].ISBN] == null) {
-                            for (let i in topicData) {
-                                if (books[j].metadata.indexOf(topicData[i]) != -1) {
-                                    let book = {topic: topicData[i], book: books[j], heat: heat[books[j].ISBN]};
-                                    listData.push(book);
+        }).then(function (books) {
+            // find owner
+            let myBooks = new Array();
+            for (let i in books) {
+                if (books[i].owner == owner) {
+                    myBooks.push(books[i]);
+                }
+            }
+            // if share less 3 books, cannot see others
+            if (myBooks.length < 2) {
+                res.render('sSection', {data: '', topic: topicAll, checkedId: checkedId, checkAll: checkA, user: req.session.user.name});
+            } else {
+                let myUser = new Map();
+                // find the users who have over 3 books
+                for (let j in myBooks) {
+                    let myBookIsbn = myBooks[j].ISBN;
+                    for (let i in books) {
+                        if (books[i].owner != owner) {
+                            if (myBookIsbn == books[i].ISBN) {
+                                if (myUser.get(books[i].owner) == null) {
+                                    myUser.set(books[i].owner, 1);
+                                }
+                                else {
+                                    myUser.set(books[i].owner, myUser.get(books[i].owner) + 1);
                                 }
                             }
                         }
-                        checkB[books[j].ISBN] = books[j].ISBN;
                     }
-                    listData = common.JsonSort(listData, 'topic')
-                    res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA, user: req.session.user.name});
-                });
+                }
+                // edit book list
+                for (let i in books) {
+                    if (books[i].owner != owner) {
+                        if (myUser.get(books[i].owner) > 2 ) {
+                            // Edit the book list
+                            let checkB = new Array();
+                            if (checkB[books[i].ISBN] == null) {
+                                for (let j in topicData) {
+                                    if (books[i].metadata.indexOf(topicData[j]) != -1) {
+                                        let book = {topic: topicData[j], book: books[i]};
+                                        listData.push(book);
+                                    }
+                                }
+                            }
+                            checkB[books[i].ISBN] = books[i].ISBN;
+                        }
+                    }
+                }
+                // sort the book
+                listData = common.JsonSort(listData, 'topic')
+                res.render('sSection', {data: listData, topic: topicAll, checkedId: checkedId, checkAll: checkA, user: req.session.user.name});
             }
         });
     });
