@@ -35,10 +35,12 @@ module.exports = function (app) {
             // find owner
             let myBooks = new Array();
             let rsBooks = new Array();
+            let myBooksMap = new Map();
             // get my books
             for (let i in books) {
                 if (books[i].owner == owner) {
                     myBooks.push(books[i]);
+                    myBooksMap.set(books[i].ISBN, 1);
                 }
             }
             // share less 3 books, cannot see others
@@ -66,17 +68,19 @@ module.exports = function (app) {
                 for (let i in books) {
                     if (books[i].owner != owner) {
                         if (myUser.get(books[i].owner) > 2 ) {
-                            rsBooks.push(books[i]);
-                            // Get topic from metadata
-                            let meta = books[i].metadata;
-                            let ary = meta.split(',');
-                            for (let k in ary) {
-                                let nowS = ary[k];
-                                nowS = nowS.replace('[', '');
-                                nowS = nowS.replace(']', '');
-                                if (topics[nowS] == null) {
-                                    topics[nowS] = nowS;
-                                    checkA = checkA + ',' + nowS;
+                            if (myBooksMap.get(books[i].ISBN) == null) {
+                                rsBooks.push(books[i]);
+                                // Get topic from metadata
+                                let meta = books[i].metadata;
+                                let ary = meta.split(',');
+                                for (let k in ary) {
+                                    let nowS = ary[k];
+                                    nowS = nowS.replace('[', '');
+                                    nowS = nowS.replace(']', '');
+                                    if (topics[nowS] == null) {
+                                        topics[nowS] = nowS;
+                                        checkA = checkA + ',' + nowS;
+                                    }
                                 }
                             }
                         }
@@ -142,9 +146,11 @@ module.exports = function (app) {
         }).then(function (books) {
             // find owner
             let myBooks = new Array();
+            let myBooksMap = new Map();
             for (let i in books) {
                 if (books[i].owner == owner) {
                     myBooks.push(books[i]);
+                    myBooksMap.set(books[i].ISBN, 1);
                 }
             }
             // if share less 3 books, cannot see others
@@ -177,8 +183,10 @@ module.exports = function (app) {
                             if (checkB[books[i].ISBN] == null) {
                                 for (let j in topicData) {
                                     if (books[i].metadata.indexOf(topicData[j]) != -1) {
-                                        let book = {topic: topicData[j], book: books[i]};
-                                        listData.push(book);
+                                        if (myBooksMap.get(books[i].ISBN) == null) {
+                                            let book = {topic: topicData[j], book: books[i]};
+                                            listData.push(book);
+                                        }
                                     }
                                 }
                             }
