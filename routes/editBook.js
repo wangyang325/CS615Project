@@ -18,7 +18,59 @@ module.exports = function (app) {
             res.redirect('login');
             return;
         }
+        // Render the page by flag(u: update, r: readonly, d: delete )
+        if (req.query.flg === 'u' || req.query.flg === 'r' || req.query.flg === 'd') {
+            // Get the owner and isbn from web page
+            let owner = req.query.owner;
+            let isbn = req.query.isbn;
+            // Search collection by owner and ISBN
+            Book.findOne({'owner': owner, 'ISBN': isbn}, function (error, doc) {
+                if (error) {
+                    // Selected data dose not exist. (Error)
+                    res.render('500');
+                    console.log(error);
+                } else if (doc) {
+                    // Transfer the data to page
+                    res.render('editBook', {data: doc, flg: {flg: req.query.flg},user: req.session.user.name});
+                } else {
+                    // Selected data dose not exist. (Error)
+                    res.render('500');
+                    console.log("The book does not exist!!");
+                }
+            });
+            // Init model
+        } else {
+            res.render('editBook', {
+                data: {author: '', isbn: '', title: '', year: '', abstract: '', metadata: ''},
+                flg: {flg: 'a'},user: req.session.user.name
+            });
+        }
+    });
 
+    // *********************************
+    // ** Post: /editBook
+    // **   Insert or update the data to database
+    // *********************************
+    app.post('/editBook', function (req, res) {
+        console.log("Post:/editBook run");
+        // Get the book model
+        let Book = global.dbHelper.getModel('book');
+        // Session check
+        let owner;
+        try {
+            owner = req.session.user.name;
+        } catch (e) {
+            res.redirect('login');
+            return;
+        }
+
+        // Get data from page
+        let isbn = req.body.isbn;
+        let title = req.body.title;
+        let author = req.body.author;
+        let year = req.body.year;
+        let abstract = req.body.abstract;
+        let metadata = req.body.metadata;
 
         // Update button
         if (req.body.flg === 'u') {
