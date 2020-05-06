@@ -178,7 +178,57 @@
         // ** Checks whether different tags are splitted by comma or not
         // ** Also checks if the user inputs a metadata tag without brackets around
         // *********************************
+        function checkMetadata() {
+            //getting metadata as input:
+            let metadata= document.getElementById("metadata").value;
+            if (metadata == '') {
+                return true;
+            }
 
+            if (metadata.match(',')) {
+                //splitting metadata tags on the basis of commas & storring them in array:
+                let topics = metadata.split(',');
+
+                //for each metadata tag / topic, it validates the format using loop:
+                for(let i=0; i<topics.length; i++)
+                {
+                    //storing the metadata tags (topics) one by one in "topic" variable:
+                    let topic=topics[i];
+                    if (checkTopic(topic) == false) {
+                        return false;
+                    }
+                }
+            }
+            else {
+                if (checkTopic(metadata) == false) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        // *********************************
+        // ** Check Topic
+        // ** [Topic]
+        // *********************************
+        function checkTopic(topic) {
+            let rs = true;
+            //removing whitespaces from the metadata tag (topic):
+            topic.trim();
+            if(topic.length < 3) {
+                rs= false;
+            } else {
+                if(topic.charAt(0)=='[' && topic.endsWith("]")) {
+                    rs= true;
+                }
+                else {
+                    rs= false;
+                }
+            }
+            return rs;
+        }
+        // *********************************
+        // ** Validator
+        // *********************************
         function validateInput() {
             let msg1 = "Invalid Metadata. e.g: [Topic1],[Topic2]";
             let msg2 ="Invalid ISBN. Please enter a 10 or 13 digit ISBN e.g. 978-1-4842-2588-2, 1-292-09613-6";
