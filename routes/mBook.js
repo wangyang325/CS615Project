@@ -65,28 +65,7 @@ module.exports = function (app) {
             return;
         }
 
-        // Edit the search conditions
-        let condition = {owner: owner};
-        if (isbn != '') {
-            condition['ISBN'] = {$regex: isbn, $options: 'i'};
-        }
-        if (title != '') {
-            condition['title'] = {$regex: title, $options: 'i'};
-        }
-        if (year != '') {
-            condition['year'] = {$regex: year, $options: 'i'};
-        }
-        if (author != '') {
-            condition['author'] = {$regex: author, $options: 'i'};
-        }
-        // Search data by condition
-        Book.find(condition, function (err, books) {
-            if (err) {
-                console.log(error);
-                res.render('500');
-            }
-            res.render('mBook', {data: books, ISBN: isbn, title: title, year: year, author: author,user: req.session.user.name});
-        });
+
     });
 }
 
